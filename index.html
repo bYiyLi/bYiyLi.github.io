@@ -46,7 +46,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -399,25 +399,32 @@ pom配置
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/list/">List基础</a>
+      <a class="index-header" href="/2020/07/19/List/lambda%E4%B8%8Elet/">lambda与let</a>
 
-      <a href="/2020/07/19/List/list/" class="index-excerpt">
+      <a href="/2020/07/19/List/lambda%E4%B8%8Elet/" class="index-excerpt">
         
         
           
         
-        <div>List
-car cdr cons 用来操作序对然而如果用序对写成
+        <div>lambda
+例：  
 
-&gt; (cons 1 (cons 2 (cons 3 4)))
-(1 2 3 . 4)
+&gt; ((lambda (x) (- x 1)) 3)
+2
 
-就是一个简单的树car 用来访问左孩子cdr 用来访问右孩子例：
+创建局部变量例：
 
-&gt; (define tem1 (cons (cons 1 2) (cons 3 4)))
-&gt; (car (car tem1))
-1
-&gt; (car (c</div>
+&gt; (define (fun x)
+    ((lambda (a) (+ x a)) (+ x 1)))
+&gt; (fun 1)
+3
+&gt; (fun 2)
+5
+
+也可以用let简化
+&gt; (define (fun x)
+    (let ((a (+ x 1))
+   </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -450,32 +457,25 @@ car cdr cons 用来操作序对然而如果用序对写成
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/lambda%E4%B8%8Elet/">lambda与let</a>
+      <a class="index-header" href="/2020/07/19/List/list/">List基础</a>
 
-      <a href="/2020/07/19/List/lambda%E4%B8%8Elet/" class="index-excerpt">
+      <a href="/2020/07/19/List/list/" class="index-excerpt">
         
         
           
         
-        <div>lambda
-例：  
+        <div>List
+car cdr cons 用来操作序对然而如果用序对写成
 
-&gt; ((lambda (x) (- x 1)) 3)
-2
+&gt; (cons 1 (cons 2 (cons 3 4)))
+(1 2 3 . 4)
 
-创建局部变量例：
+就是一个简单的树car 用来访问左孩子cdr 用来访问右孩子例：
 
-&gt; (define (fun x)
-    ((lambda (a) (+ x a)) (+ x 1)))
-&gt; (fun 1)
-3
-&gt; (fun 2)
-5
-
-也可以用let简化
-&gt; (define (fun x)
-    (let ((a (+ x 1))
-   </div>
+&gt; (define tem1 (cons (cons 1 2) (cons 3 4)))
+&gt; (car (car tem1))
+1
+&gt; (car (c</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -609,7 +609,7 @@ car cdr cons 用来操作序对然而如果用序对写成
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Hello Word&nbsp;",
+        "Hello Word!&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

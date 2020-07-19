@@ -46,7 +46,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -332,24 +332,27 @@ define
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/">序对应用</a>
+      <a class="index-header" href="/2020/07/19/List/%E5%B8%B8%E7%94%A8%E5%88%A4%E6%96%AD/">常用判断</a>
 
-      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/" class="index-excerpt">
+      <a href="/2020/07/19/List/%E5%B8%B8%E7%94%A8%E5%88%A4%E6%96%AD/" class="index-excerpt">
         
         
           
         
-        <div>cons car cdr 的一个小实现&gt; (define (car x)
-    (x 0))
-&gt; (define (cdr x)
-    (x 1))
-&gt; (define (cons x y)
-    (define (tem z)
-      (cond ((= 0 z) x)
-        ((= 1 z) y)))
-    tem
-     )
-&gt; (car (c</div>
+        <div>eq?用于判断两个符号是不是相同的符号
+&gt; (eq? 'a 'a)
+#t
+&gt; (eq? 'a 'b)
+#f
+&gt; (eq? 'aa 'aa)
+#t
+&gt; (eq? 'aac 'aac)
+#t
+
+memq用于检查符号是不是在表中如果在表中就返回这个符号第一次出现的那个子表
+&gt; (memq 'a '(a b c))
+(a b c)
+&gt; (memq 'a '(1 2 a </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -370,57 +373,7 @@ define
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/scheme%E7%BB%83%E4%B9%A0/">scheme练习</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/">数组</a>
-
-      <a href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/" class="index-excerpt">
-        
-        
-          
-        
-        <div>数组
-数组在定义的时候必须确定其大小如：
-
-int[] A= new int[100];
-int[] B=&#123;1,2,3,4,5);
-在jvm内存分配中
-数组分配在堆中。
-用其数组引用使用数组。
-java的数组在使用的时候会检查是否越界，代价就是没有c，c++速度快。不过比c，c++安全。
-
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
+              <a href="/tags/scheme%E5%9F%BA%E7%A1%80/">scheme基础</a>
             
           </div>
         
@@ -473,6 +426,66 @@ java对象作用域和基本数据类型的作用域不一样，java对象是由
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/">class分析</a>
+
+      <a href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/" class="index-excerpt">
+        
+        
+          
+        
+        <div>class类分析
+
+
+class类的组成
+魔数（Magic）
+版本号（Version）
+常量池（constant_pool) 
+访问标志（access_flag) 
+当前类索引（this_class) 
+父类索引（super_class) 
+接口索引 （interfaces） 
+字段表（fields） 
+方法表（methods） 
+附加属性（attributes） 
+
+
+
+
+
+魔数（Magic）
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Jvm/">Jvm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/jvm%E5%9F%BA%E7%A1%80/">jvm基础</a>
             
           </div>
         
@@ -617,6 +630,56 @@ Character
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/">数组</a>
+
+      <a href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/" class="index-excerpt">
+        
+        
+          
+        
+        <div>数组
+数组在定义的时候必须确定其大小如：
+
+int[] A= new int[100];
+int[] B=&#123;1,2,3,4,5);
+在jvm内存分配中
+数组分配在堆中。
+用其数组引用使用数组。
+java的数组在使用的时候会检查是否越界，代价就是没有c，c++速度快。不过比c，c++安全。
+
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/kubernetes/Pod/">pod简单操作</a>
 
       <a href="/2020/07/19/kubernetes/Pod/" class="index-excerpt">
@@ -659,66 +722,6 @@ kubec</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/kubernets%E5%9F%BA%E7%A1%80/">kubernets基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/">class分析</a>
-
-      <a href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/" class="index-excerpt">
-        
-        
-          
-        
-        <div>class类分析
-
-
-class类的组成
-魔数（Magic）
-版本号（Version）
-常量池（constant_pool) 
-访问标志（access_flag) 
-当前类索引（this_class) 
-父类索引（super_class) 
-接口索引 （interfaces） 
-字段表（fields） 
-方法表（methods） 
-附加属性（attributes） 
-
-
-
-
-
-魔数（Magic）
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Jvm/">Jvm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/jvm%E5%9F%BA%E7%A1%80/">jvm基础</a>
             
           </div>
         
@@ -831,7 +834,7 @@ class类的组成
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Hello Word&nbsp;",
+        "Hello Word!&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

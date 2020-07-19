@@ -46,7 +46,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -463,51 +463,6 @@ alter table t1
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/mybatis/8%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E6%95%B0%E7%BB%84/">接受数组类型</a>
-
-      <a href="/2020/07/19/mybatis/8%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E6%95%B0%E7%BB%84/" class="index-excerpt">
-        
-        
-          
-        
-        <div>开始1. 在接口中加入方法public Proper getByProperId(@Param("id") int id);
-
-2.在mapper配置文件中编写对应的标签
-&lt;resultMap id="proper" type="com.example.mybatis.Proper"&gt;
-        &lt;id property="id" column="p_id"/&gt;
-  </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/mybatis/">mybatis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mybatis%E5%9F%BA%E7%A1%80/">mybatis基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/mybatis/7%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE/">接受复杂对象</a>
 
       <a href="/2020/07/19/mybatis/7%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE/" class="index-excerpt">
@@ -553,27 +508,69 @@ alter table t1
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/%E5%B8%B8%E7%94%A8%E5%88%A4%E6%96%AD/">常用判断</a>
+      <a class="index-header" href="/2020/07/19/mybatis/8%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E6%95%B0%E7%BB%84/">接受数组类型</a>
 
-      <a href="/2020/07/19/List/%E5%B8%B8%E7%94%A8%E5%88%A4%E6%96%AD/" class="index-excerpt">
+      <a href="/2020/07/19/mybatis/8%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E6%95%B0%E7%BB%84/" class="index-excerpt">
         
         
           
         
-        <div>eq?用于判断两个符号是不是相同的符号
-&gt; (eq? 'a 'a)
-#t
-&gt; (eq? 'a 'b)
-#f
-&gt; (eq? 'aa 'aa)
-#t
-&gt; (eq? 'aac 'aac)
-#t
+        <div>开始1. 在接口中加入方法public Proper getByProperId(@Param("id") int id);
 
-memq用于检查符号是不是在表中如果在表中就返回这个符号第一次出现的那个子表
-&gt; (memq 'a '(a b c))
-(a b c)
-&gt; (memq 'a '(1 2 a </div>
+2.在mapper配置文件中编写对应的标签
+&lt;resultMap id="proper" type="com.example.mybatis.Proper"&gt;
+        &lt;id property="id" column="p_id"/&gt;
+  </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/mybatis/">mybatis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mybatis%E5%9F%BA%E7%A1%80/">mybatis基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/">序对应用</a>
+
+      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/" class="index-excerpt">
+        
+        
+          
+        
+        <div>cons car cdr 的一个小实现&gt; (define (car x)
+    (x 0))
+&gt; (define (cdr x)
+    (x 1))
+&gt; (define (cons x y)
+    (define (tem z)
+      (cond ((= 0 z) x)
+        ((= 1 z) y)))
+    tem
+     )
+&gt; (car (c</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -594,7 +591,7 @@ memq用于检查符号是不是在表中如果在表中就返回这个符号第�
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/scheme%E5%9F%BA%E7%A1%80/">scheme基础</a>
+              <a href="/tags/scheme%E7%BB%83%E4%B9%A0/">scheme练习</a>
             
           </div>
         
@@ -707,7 +704,7 @@ memq用于检查符号是不是在表中如果在表中就返回这个符号第�
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Hello Word&nbsp;",
+        "Hello Word!&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
