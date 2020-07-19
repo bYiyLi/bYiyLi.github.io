@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Byh">
+  <meta name="keywords" content="">
+  <title>class分析 - Y2L</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/solarized-dark.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-19 20:47">
+      2020年7月19日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      750 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="class类分析"><a href="#class类分析" class="headerlink" title="class类分析"></a>class类分析</h1><p><img src="https://img.wang1314.net/Fp1PQW68cwPQiuK8a6-FUM-VKDvY?info=w_622_wh_483_hl_14146_lm5_68b40e9d08ba093c2d437a20d9438d4e_m5" srcset="/img/loading.gif" alt="img"></p>
+<hr>
+<ul>
+<li><h2 id="class类的组成"><a href="#class类的组成" class="headerlink" title="class类的组成"></a>class类的组成</h2><ul>
+<li>魔数（Magic）</li>
+<li>版本号（Version）</li>
+<li>常量池（constant_pool) </li>
+<li>访问标志（access_flag) </li>
+<li>当前类索引（this_class) </li>
+<li>父类索引（super_class) </li>
+<li>接口索引 （interfaces） </li>
+<li>字段表（fields） </li>
+<li>方法表（methods） </li>
+<li>附加属性（attributes） </li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>魔数（Magic）</p>
+<div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs angelscript">一个<span class="hljs-keyword">class</span>文件的魔数不会改变
+在开头    <span class="hljs-symbol">0xCAFEBABE</span>
+<span class="hljs-symbol">jvm</span>是靠魔数判断是不是一个<span class="hljs-symbol">class</span>类</code></pre></div></div></code></pre></li>
+<li><p>版本号（Version）</p>
+<ul>
+<li><p>副版本号（minor_version)</p>
+</li>
+<li><p>主版本号（major_version)</p>
+<div class="hljs"><pre><code class="hljs coffeescript">版本号是jvm判断<span class="hljs-class"><span class="hljs-keyword">class</span>类能不能被正常执行</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span>类的版本号必须在<span class="hljs-title">jvm</span>所支持的版本号内才能正常执行</span></code></pre></div>
+</li>
+</ul>
+</li>
+<li><p>常量池（constant_pool）</p>
+<ul>
+<li><p>常量池计数器（constant_pool_count)</p>
+</li>
+<li><p>常量池（constant_pool[])</p>
+<div class="hljs"><pre><code class="hljs yaml"><span class="hljs-string">计数器是常量池的个数加一</span>
+<span class="hljs-string">常量池</span>
+<span class="hljs-string">例如：class数据</span>
+
+					  <span class="hljs-number">00</span> <span class="hljs-number">13</span> <span class="hljs-string">0A</span> <span class="hljs-number">00</span> <span class="hljs-number">03</span> <span class="hljs-number">00</span> <span class="hljs-number">10</span> <span class="hljs-number">07</span>  <span class="hljs-string">.......4........</span>
+<span class="hljs-number">00</span> <span class="hljs-number">11</span> <span class="hljs-number">07</span> <span class="hljs-number">00</span> <span class="hljs-number">12</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span> <span class="hljs-number">61</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span> <span class="hljs-number">49</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span>  <span class="hljs-string">........a...I...</span>
+<span class="hljs-number">62</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">06</span> <span class="hljs-string">3C</span> <span class="hljs-number">69</span> <span class="hljs-string">6E</span> <span class="hljs-number">69</span> <span class="hljs-number">74</span> <span class="hljs-string">3E</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">03</span> <span class="hljs-number">28</span> <span class="hljs-number">29</span> <span class="hljs-number">56</span>  <span class="hljs-string">b...&lt;init&gt;...()V</span>
+<span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">04</span> <span class="hljs-number">43</span> <span class="hljs-string">6F</span> <span class="hljs-number">64</span> <span class="hljs-number">65</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-string">0F</span> <span class="hljs-string">4C</span> <span class="hljs-number">69</span> <span class="hljs-string">6E</span> <span class="hljs-number">65</span> <span class="hljs-string">4E</span> <span class="hljs-number">75</span>  <span class="hljs-string">...Code...LineNu</span>
+<span class="hljs-string">6D</span> <span class="hljs-number">62</span> <span class="hljs-number">65</span> <span class="hljs-number">72</span> <span class="hljs-number">54</span> <span class="hljs-number">61</span> <span class="hljs-number">62</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">12</span> <span class="hljs-string">4C</span> <span class="hljs-string">6F</span> <span class="hljs-number">63</span> <span class="hljs-number">61</span>  <span class="hljs-string">mberTable...Loca</span>
+<span class="hljs-string">6C</span> <span class="hljs-number">56</span> <span class="hljs-number">61</span> <span class="hljs-number">72</span> <span class="hljs-number">69</span> <span class="hljs-number">61</span> <span class="hljs-number">62</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span> <span class="hljs-number">54</span> <span class="hljs-number">61</span> <span class="hljs-number">62</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span>  <span class="hljs-string">lVariableTable..</span>
+<span class="hljs-number">04</span> <span class="hljs-number">74</span> <span class="hljs-number">68</span> <span class="hljs-number">69</span> <span class="hljs-number">73</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">09</span> <span class="hljs-string">4C</span> <span class="hljs-number">63</span> <span class="hljs-string">6F</span> <span class="hljs-string">6D</span> <span class="hljs-string">2F</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span>  <span class="hljs-string">.this...Lcom/AAA</span>
+<span class="hljs-string">3B</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-string">0A</span> <span class="hljs-number">53</span> <span class="hljs-string">6F</span> <span class="hljs-number">75</span> <span class="hljs-number">72</span> <span class="hljs-number">63</span> <span class="hljs-number">65</span> <span class="hljs-number">46</span> <span class="hljs-number">69</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span>  <span class="hljs-string">;...SourceFile..</span>
+<span class="hljs-number">08</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-string">2E</span> <span class="hljs-string">6A</span> <span class="hljs-number">61</span> <span class="hljs-number">76</span> <span class="hljs-number">61</span> <span class="hljs-string">0C</span> <span class="hljs-number">00</span> <span class="hljs-number">07</span> <span class="hljs-number">00</span> <span class="hljs-number">08</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span>  <span class="hljs-string">.AAA.java.......</span>
+<span class="hljs-number">07</span> <span class="hljs-number">63</span> <span class="hljs-string">6F</span> <span class="hljs-string">6D</span> <span class="hljs-string">2F</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">01</span>  <span class="hljs-number">00</span> <span class="hljs-number">10</span> <span class="hljs-string">6A</span> <span class="hljs-number">61</span> <span class="hljs-number">76</span> <span class="hljs-number">61</span> <span class="hljs-string">2F</span>  <span class="hljs-string">.com/AAA...java/</span>
+<span class="hljs-string">6C</span> <span class="hljs-number">61</span> <span class="hljs-string">6E</span> <span class="hljs-number">67</span> <span class="hljs-string">2F</span> <span class="hljs-string">4F</span> <span class="hljs-number">62</span> <span class="hljs-string">6A</span> <span class="hljs-number">65</span> <span class="hljs-number">63</span> <span class="hljs-number">74</span>
+
+<span class="hljs-number">00</span> <span class="hljs-number">13</span> <span class="hljs-string">代表19</span>   <span class="hljs-string">说明常量池有18个数据</span>
+<span class="hljs-number">1</span><span class="hljs-string">：0A</span> <span class="hljs-number">00</span> <span class="hljs-number">03</span> <span class="hljs-number">00</span> <span class="hljs-number">10</span>                         <span class="hljs-comment">#3.#16</span>
+<span class="hljs-number">2</span><span class="hljs-string">：07</span> <span class="hljs-number">00</span> <span class="hljs-number">11</span>                               <span class="hljs-comment">#17</span>
+<span class="hljs-number">3</span><span class="hljs-string">：07</span> <span class="hljs-number">00</span> <span class="hljs-number">12</span>                               <span class="hljs-comment">#18</span>
+<span class="hljs-number">4</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span> <span class="hljs-number">61</span>                            <span class="hljs-string">a</span> 
+<span class="hljs-number">5</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span> <span class="hljs-number">49</span>                            <span class="hljs-string">I</span>
+<span class="hljs-number">6</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span> <span class="hljs-number">62</span>                            <span class="hljs-string">b</span>
+<span class="hljs-number">7</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">06</span> <span class="hljs-string">3C</span> <span class="hljs-number">69</span> <span class="hljs-string">6E</span> <span class="hljs-number">69</span> <span class="hljs-number">74</span> <span class="hljs-string">3E</span>             <span class="hljs-string">&lt;init&gt;</span>
+<span class="hljs-number">8</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">03</span> <span class="hljs-number">28</span> <span class="hljs-number">29</span> <span class="hljs-number">56</span> 				   <span class="hljs-string">()V</span>
+<span class="hljs-number">9</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">04</span> <span class="hljs-number">43</span> <span class="hljs-string">6F</span> <span class="hljs-number">64</span> <span class="hljs-number">65</span>                   <span class="hljs-string">Code</span>
+<span class="hljs-number">10</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-string">0F</span> <span class="hljs-string">4C</span> <span class="hljs-number">69</span> <span class="hljs-string">6E</span> <span class="hljs-number">65</span> <span class="hljs-string">4E</span> <span class="hljs-number">75</span> <span class="hljs-string">6D</span> <span class="hljs-number">62</span> <span class="hljs-number">65</span> <span class="hljs-number">72</span> <span class="hljs-number">54</span> <span class="hljs-number">61</span> <span class="hljs-number">62</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span>       <span class="hljs-string">LineNumberTable</span>
+<span class="hljs-number">11</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">12</span> <span class="hljs-string">4C</span> <span class="hljs-string">6F</span> <span class="hljs-number">63</span> <span class="hljs-number">61</span> <span class="hljs-string">6C</span> <span class="hljs-number">56</span> <span class="hljs-number">61</span> <span class="hljs-number">72</span> <span class="hljs-number">69</span> <span class="hljs-number">61</span> <span class="hljs-number">62</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span> <span class="hljs-number">54</span> <span class="hljs-number">61</span> <span class="hljs-number">62</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span>  <span class="hljs-string">LocalVariableTable</span>
+<span class="hljs-number">12</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">04</span> <span class="hljs-number">74</span> <span class="hljs-number">68</span> <span class="hljs-number">69</span> <span class="hljs-number">73</span>                  <span class="hljs-string">this</span> 
+<span class="hljs-number">13</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">09</span> <span class="hljs-string">4C</span> <span class="hljs-number">63</span> <span class="hljs-string">6F</span> <span class="hljs-string">6D</span> <span class="hljs-string">2F</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-string">3B</span>    <span class="hljs-string">Lcom/AAA</span>
+<span class="hljs-number">14</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-string">0A</span> <span class="hljs-number">53</span> <span class="hljs-string">6F</span> <span class="hljs-number">75</span> <span class="hljs-number">72</span> <span class="hljs-number">63</span> <span class="hljs-number">65</span> <span class="hljs-number">46</span> <span class="hljs-number">69</span> <span class="hljs-string">6C</span> <span class="hljs-number">65</span>   <span class="hljs-string">SourceFile</span>
+
+<span class="hljs-number">15</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">08</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-string">2E</span> <span class="hljs-string">6A</span> <span class="hljs-number">61</span> <span class="hljs-number">76</span> <span class="hljs-number">61</span>        <span class="hljs-string">AAA.java</span>
+<span class="hljs-number">16</span><span class="hljs-string">：0C</span> <span class="hljs-number">00</span> <span class="hljs-number">07</span> <span class="hljs-number">00</span> <span class="hljs-number">08</span>                          <span class="hljs-comment">#7:#8</span>
+<span class="hljs-number">17</span><span class="hljs-string">：01</span> <span class="hljs-number">00</span> <span class="hljs-number">07</span> <span class="hljs-number">63</span> <span class="hljs-string">6F</span> <span class="hljs-string">6D</span> <span class="hljs-string">2F</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span> <span class="hljs-number">41</span>           <span class="hljs-string">com/AAA</span>
+<span class="hljs-number">18</span><span class="hljs-string">：01</span>  <span class="hljs-number">00</span> <span class="hljs-number">10</span> <span class="hljs-string">6A</span> <span class="hljs-number">61</span> <span class="hljs-number">76</span> <span class="hljs-number">61</span> <span class="hljs-string">2F</span> <span class="hljs-string">6C</span> <span class="hljs-number">61</span> <span class="hljs-string">6E</span> <span class="hljs-number">67</span> <span class="hljs-string">2F</span> <span class="hljs-string">4F</span> <span class="hljs-number">62</span> <span class="hljs-string">6A</span> <span class="hljs-number">65</span> <span class="hljs-number">63</span> <span class="hljs-number">74</span>   <span class="hljs-string">java/lang/Object</span></code></pre></div>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>访问标志（access_flags）</p>
+<div class="hljs"><pre><code class="hljs plain">描述类或者接口的访问限权</code></pre></div>
+</li>
+<li><p>类索引（this_class）</p>
+<div class="hljs"><pre><code class="hljs plain">为常量池中的某一项有效索引值</code></pre></div>
+</li>
+<li><p>父类索引（super_class)</p>
+<div class="hljs"><pre><code class="hljs angelscript">要么是<span class="hljs-number">0</span> 要么是常量池中的有效索引值</code></pre></div>
+</li>
+<li><p>接口计数器（interfaces_count）</p>
+<div class="hljs"><pre><code class="hljs plain">表示单当前类或接口的直接超接口数量</code></pre></div>
+</li>
+<li><p>接口表（interfaces[]）</p>
+<div class="hljs"><pre><code class="hljs plain">每个成员必须是常量池中某项的有效索引值</code></pre></div>
+</li>
+<li><p>字段计数器（fields_count)</p>
+<div class="hljs"><pre><code class="hljs angelscript">表示<span class="hljs-keyword">class</span>文件的<span class="hljs-symbol">fielda</span>表的个数</code></pre></div>
+</li>
+<li><p>字段表（fields[])</p>
+<div class="hljs"><pre><code class="hljs plain">当前类或接口中的字段的完整描述，不包括从父类或父接口继承的字段</code></pre></div>
+</li>
+<li><p>方法计数器（methods_count)</p>
+</li>
+<li><p>方法表</p>
+</li>
+<li><p>属性计数器</p>
+</li>
+<li><p>属性表</p>
+</li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Jvm/">Jvm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/jvm%E5%9F%BA%E7%A1%80/">jvm基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/19/kubernetes/Pod/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pod简单操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9/">
+                        <span class="hidden-mobile">序对</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "class分析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
