@@ -491,19 +491,12 @@ java的数组在使用的时候会检查是否越界，代价就是没有c，c++
         
           
         
-        <div>一 Pod基本操作1.使用kubectl create来创建pod
-kubectl create -f yaml-name.yaml
+        <div>一 Pod基本操作1.使用kubectl create来创建podkubectl create -f yaml-name.yaml2.获取运行中的pod的完整定义获取yaml格式的pod完整定义
 
-### 2.获取运行中的pod的完整定义
+kubectl get po pod-name -o yaml
 
--   获取yaml格式的pod完整定义
-
-    ``` 
-    kubectl get po pod-name -o yaml
-
--   po 是pod的缩写
-获取json格式的pod完整定义
-kubectl ge</div>
+- po 是pod的缩写   获取json格式的pod完整定义
+kubectl get po pod-name -o json3.获取所</div>
       </a>
 
       <div class="index-btm post-metas">

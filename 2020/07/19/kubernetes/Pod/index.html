@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      344 字
+      327 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      4
        分钟
     </span>
   
@@ -204,144 +204,50 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="一-Pod基本操作"><a href="#一-Pod基本操作" class="headerlink" title="一 Pod基本操作"></a>一 Pod基本操作</h1><h3 id="1-使用kubectl-create来创建pod"><a href="#1-使用kubectl-create来创建pod" class="headerlink" title="1.使用kubectl create来创建pod"></a>1.使用kubectl create来创建pod</h3><ul>
-<li><div class="hljs"><pre><code>kubectl create -f yaml-name.yaml
-<div class="hljs"><pre><code class="hljs applescript">
-<span class="hljs-comment">### 2.获取运行中的pod的完整定义</span>
+              <h1 id="一-Pod基本操作"><a href="#一-Pod基本操作" class="headerlink" title="一 Pod基本操作"></a>一 Pod基本操作</h1><h3 id="1-使用kubectl-create来创建pod"><a href="#1-使用kubectl-create来创建pod" class="headerlink" title="1.使用kubectl create来创建pod"></a>1.使用kubectl create来创建pod</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs pgsql">kubectl <span class="hljs-keyword">create</span> -f yaml-<span class="hljs-type">name</span>.yaml</code></pre></div></div></code></pre><h3 id="2-获取运行中的pod的完整定义"><a href="#2-获取运行中的pod的完整定义" class="headerlink" title="2.获取运行中的pod的完整定义"></a>2.获取运行中的pod的完整定义</h3><div class="hljs"><pre><code>获取yaml格式的pod完整定义
 
--   获取yaml格式的pod完整定义
+<div class="hljs"><pre><code class="hljs applescript">kubectl <span class="hljs-keyword">get</span> po pod-<span class="hljs-built_in">name</span> -o yaml</code></pre></div></div>
 
-    ``` 
-    kubectl <span class="hljs-keyword">get</span> po pod-<span class="hljs-built_in">name</span> -o yaml</code></pre></div></div>
+- po 是pod的缩写</code></pre><p>   获取json格式的pod完整定义</p>
+<div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs pgsql">kubectl <span class="hljs-keyword">get</span> po pod-<span class="hljs-type">name</span> -o <span class="hljs-type">json</span></code></pre></div></div></code></pre><h3 id="3-获取所有pod"><a href="#3-获取所有pod" class="headerlink" title="3.获取所有pod"></a>3.获取所有pod</h3><div class="hljs"><pre><code>获取默认命名空间所有pod
 
--   po 是pod的缩写</code></pre></li>
-<li><p>获取json格式的pod完整定义</p>
-<div class="hljs"><pre><code class="hljs pgsql">kubectl <span class="hljs-keyword">get</span> po pod-<span class="hljs-type">name</span> -o <span class="hljs-type">json</span></code></pre></div>
+    <div class="hljs"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> pods</code></pre></div></div></code></pre><p>   获取指定空间的所有pod</p>
+<div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs actionscript">kubectl <span class="hljs-keyword">get</span> po --<span class="hljs-keyword">namespace</span> <span class="hljs-keyword">namespace</span></code></pre></div></div></code></pre><h3 id="4-获取应用程序的日志"><a href="#4-获取应用程序的日志" class="headerlink" title="4.获取应用程序的日志"></a>4.获取应用程序的日志</h3><p>   使用kubectl  logs 命令获取pod日志</p>
+<div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs applescript">kubectl logs container-<span class="hljs-built_in">id</span></code></pre></div></div></code></pre><p>   -c 获取pod中指定容器的日志</p>
+<div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs ebnf"><span class="hljs-attribute">kubectl logs kubia-manual -c kubia</span></code></pre></div></div>
 
-</li>
-</ul>
-<h3 id="3-获取所有pod"><a href="#3-获取所有pod" class="headerlink" title="3.获取所有pod"></a>3.获取所有pod</h3><ul>
-<li><p>获取默认命名空间所有pod</p>
-<ul>
-<li><div class="hljs"><pre><code>kubectl get pods
-<div class="hljs"><pre><code class="hljs haml">
--<span class="ruby">   获取指定空间的所有pod</span>
+   在kubia-manual Pod中的kubia容器</code></pre><h3 id="5-向Pod发送请求"><a href="#5-向Pod发送请求" class="headerlink" title="5. 向Pod发送请求"></a>5. 向Pod发送请求</h3><p>   在不通过svc的情况下与pod通信</p>
+<div class="hljs"><pre><code>使用port-forward
 
-<span class="ruby">    -</span></code></pre></div></div>
-kubectl get po --namespace namespace
-<div class="hljs"><pre><code class="hljs">
-        
+     <div class="hljs"><pre><code class="hljs angelscript">kubectl port-forward kubia-manual <span class="hljs-number">8888</span>:<span class="hljs-number">8080</span></code></pre></div></div>
 
-### 4.获取应用程序的日志
+     <div class="hljs"><pre><code class="hljs angelscript">cuel localhost:<span class="hljs-number">8888</span></code></pre></div></code></pre><h3 id="6-删除Pod"><a href="#6-删除Pod" class="headerlink" title="6. 删除Pod"></a>6. 删除Pod</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs pgsql">kubectl <span class="hljs-keyword">delete</span> pod pod-<span class="hljs-type">name</span></code></pre></div></div></code></pre><hr>
+<h1 id="二-Pod标签"><a href="#二-Pod标签" class="headerlink" title="二  Pod标签"></a>二  Pod标签</h1><h3 id="1-一个简单的yaml"><a href="#1-一个简单的yaml" class="headerlink" title="1. 一个简单的yaml"></a>1. 一个简单的yaml</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">kubia-manual</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">creation-method:</span> <span class="hljs-string">manual</span>
+    <span class="hljs-attr">env:</span> <span class="hljs-string">prod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">luksa/kubia</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">kubia</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8081</span>
+      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span></code></pre></div></div>
 
--   使用kubectl  logs 命令获取pod日志
+    具有2个标签
 
-    -</code></pre></div>
-kubectl logs container-id
-<div class="hljs"><pre><code class="hljs">
-        
+        <div class="hljs"><pre><code class="hljs oxygene">creation-<span class="hljs-function"><span class="hljs-keyword">method</span>:</span> manual</code></pre></div>
 
--   -c 获取pod中指定容器的日志
+        <div class="hljs"><pre><code class="hljs vim"><span class="hljs-keyword">en</span><span class="hljs-variable">v:</span> prod</code></pre></div></code></pre><h3 id="2-获取pod上的所有标签"><a href="#2-获取pod上的所有标签" class="headerlink" title="2. 获取pod上的所有标签"></a>2. 获取pod上的所有标签</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs applescript">kubectl <span class="hljs-keyword">get</span> po pod-<span class="hljs-built_in">name</span> <span class="hljs-comment">--show-labels</span></code></pre></div></div></code></pre><h3 id="3-获取含有label的所有pod"><a href="#3-获取含有label的所有pod" class="headerlink" title="3. 获取含有label的所有pod"></a>3. 获取含有label的所有pod</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs delphi">kubectl get po -L <span class="hljs-keyword">label</span>-<span class="hljs-keyword">name</span>,<span class="hljs-keyword">label</span>-<span class="hljs-keyword">name</span>.....</code></pre></div></div></code></pre><h3 id="4-修改pod上的label"><a href="#4-修改pod上的label" class="headerlink" title="4. 修改pod上的label"></a>4. 修改pod上的label</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs applescript">kubectl label po pod-<span class="hljs-built_in">name</span> env=v1 <span class="hljs-comment">--overwrite</span></code></pre></div></div>
 
-    -</code></pre></div>
- kubectl logs kubia-manual -c kubia 
-<div class="hljs"><pre><code class="hljs markdown">
-<span class="hljs-bullet">        -   </span>在kubia-manual Pod中的kubia容器
+-   修改现有的label值需要   - -overwrite</code></pre><p>​    </p>
+<h3 id="5-添加label"><a href="#5-添加label" class="headerlink" title="5. 添加label"></a>5. 添加label</h3><div class="hljs"><pre><code> <div class="hljs"><pre><code class="hljs delphi">k <span class="hljs-keyword">label</span> pod pod-<span class="hljs-keyword">name</span> <span class="hljs-keyword">name</span>=ku</code></pre></div></div>
 
-<span class="hljs-section">### 5. 向Pod发送请求</span>
-
-<span class="hljs-bullet">-   </span>在不通过svc的情况下与pod通信
-
-<span class="hljs-bullet">    -   </span>使用port-forward
-
-<span class="hljs-code">        -</span></code></pre></div>
-    kubectl port-forward kubia-manual 8888:8080
-    <div class="hljs"><pre><code class="hljs diff">
-<span class="hljs-deletion">-</span></code></pre></div>
-    cuel localhost:8888
-    <div class="hljs"><pre><code class="hljs clean">
-### <span class="hljs-number">6.</span> 删除Pod
-
--</code></pre></div>
-kubectl delete pod pod-name
-<div class="hljs"><pre><code class="hljs yaml">
-<span class="hljs-meta">---</span>
-
-
-
-
-
-
-
-<span class="hljs-comment"># 二  Pod标签</span>
-
-<span class="hljs-comment">###  1. 一个简单的yaml</span>
-
-<span class="hljs-bullet">-</span>   <span class="hljs-string">```</span> 
-    <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
-    <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
-    <span class="hljs-attr">metadata:</span>
-      <span class="hljs-attr">name:</span> <span class="hljs-string">kubia-manual</span>
-      <span class="hljs-attr">labels:</span>
-        <span class="hljs-attr">creation-method:</span> <span class="hljs-string">manual</span>
-        <span class="hljs-attr">env:</span> <span class="hljs-string">prod</span>
-    <span class="hljs-attr">spec:</span>
-      <span class="hljs-attr">containers:</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">luksa/kubia</span>
-        <span class="hljs-attr">name:</span> <span class="hljs-string">kubia</span>
-        <span class="hljs-attr">ports:</span>
-        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8081</span>
-          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span></code></pre></div></code></pre></li>
-<li><p>具有2个标签</p>
-<ul>
-<li><div class="hljs"><pre><code>creation-method: manual
-<div class="hljs"><pre><code class="hljs autohotkey">
--   ``` 
-<span class="hljs-title">    env:</span> prod</code></pre></div></div>
-
-
-</code></pre></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-获取pod上的所有标签"><a href="#2-获取pod上的所有标签" class="headerlink" title="2. 获取pod上的所有标签"></a>2. 获取pod上的所有标签</h3><ul>
-<li><div class="hljs"><pre><code>kubectl get po pod-name --show-labels
-<div class="hljs"><pre><code class="hljs">
-    
-
-### 3. 获取含有label的所有pod
-
--</code></pre></div></div>
-kubectl get po -L label-name,label-name.....
-<div class="hljs"><pre><code class="hljs">
-
-
-### 4. 修改pod上的label
-
--</code></pre></div>
-kubectl label po pod-name env=v1 --overwrite
-<div class="hljs"><pre><code class="hljs clean">
-    -   修改现有的label值需要   - -overwrite
-
-​    
-
-### <span class="hljs-number">5.</span> 添加label
-
--</code></pre></div>
-k label pod pod-name name=ku
-<div class="hljs"><pre><code class="hljs clean">
-    -   注意 原来pod不能含有这个标签
-
-​    
-
-### <span class="hljs-number">6.</span> 获取指定label的pod
-
--</code></pre></div>
-kubectl get po -l label=label-content</code></pre></li>
-</ul>
-
+-   注意 原来pod不能含有这个标签</code></pre><p>​    </p>
+<h3 id="6-获取指定label的pod"><a href="#6-获取指定label的pod" class="headerlink" title="6. 获取指定label的pod"></a>6. 获取指定label的pod</h3><div class="hljs"><pre><code><div class="hljs"><pre><code class="hljs maxima">kubectl <span class="hljs-built_in">get</span> po -l <span class="hljs-built_in">label</span>=<span class="hljs-built_in">label</span>-<span class="hljs-built_in">content</span></code></pre></div></div></code></pre>
             </article>
             <hr>
             <div>
