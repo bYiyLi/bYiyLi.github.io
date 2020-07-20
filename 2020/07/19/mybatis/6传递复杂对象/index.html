@@ -14,10 +14,10 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="Hello Word!">
   <meta name="author" content="Byh">
   <meta name="keywords" content="">
-  <title>List/stream - Y2L</title>
+  <title>传递复杂对象 - Y2L</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,7 +152,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-19 21:56">
+    <time datetime="2020-07-19 20:47">
       2020年7月19日 晚上
     </time>
   </div>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      191 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      3
        分钟
     </span>
   
@@ -204,12 +204,60 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              
+              <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h4 id="1-构造出两张表"><a href="#1-构造出两张表" class="headerlink" title="1. 构造出两张表"></a>1. 构造出两张表</h4><div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> proper(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">8</span>) primary <span class="hljs-keyword">key</span> ,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">char</span>(<span class="hljs-number">16</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> ,
+    meg <span class="hljs-built_in">char</span>(<span class="hljs-number">32</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>
+);
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> home (
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">8</span>) primary <span class="hljs-keyword">key</span> ,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">char</span>(<span class="hljs-number">16</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> ,
+    <span class="hljs-keyword">master</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">8</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> ,
+    <span class="hljs-keyword">foreign</span> <span class="hljs-keyword">key</span> (<span class="hljs-keyword">master</span>) <span class="hljs-keyword">references</span> proper(<span class="hljs-keyword">id</span>)
+);</code></pre></div>
+
+<h4 id="2-在接口中增加一个方法"><a href="#2-在接口中增加一个方法" class="headerlink" title="2.在接口中增加一个方法"></a>2.在接口中增加一个方法</h4><div class="hljs"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">addHome</span><span class="hljs-params">(Home home)</span></span>;</code></pre></div>
+
+
+
+<h4 id="3-在mapper配置文件中编写对应的标签"><a href="#3-在mapper配置文件中编写对应的标签" class="headerlink" title="3.在mapper配置文件中编写对应的标签"></a>3.在mapper配置文件中编写对应的标签</h4><div class="hljs"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">insert</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"addHome"</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">"com.example.mybatis.Home"</span>&gt;</span>
+      insert into home (id, name, master) value (#&#123;id&#125;,#&#123;name&#125;,#&#123;proper.id&#125;)
+ <span class="hljs-tag">&lt;/<span class="hljs-name">insert</span>&gt;</span></code></pre></div>
+
+<h4 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h4><div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">conTextLoadsHome</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+		SqlSessionFactory sqlSessionFactory=SessionFactory.getSessionFactory();
+		<span class="hljs-keyword">try</span> (SqlSession sqlSession=sqlSessionFactory.openSession())&#123;
+			t1Mapper mapper = sqlSession.getMapper(t1Mapper<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+			<span class="hljs-keyword">int</span> i = mapper.addHome(<span class="hljs-keyword">new</span> Home(<span class="hljs-number">10</span>, <span class="hljs-string">"home10"</span>, <span class="hljs-keyword">new</span> Proper(<span class="hljs-number">1</span>, <span class="hljs-string">"a1"</span>, <span class="hljs-string">"10"</span>)));
+			System.out.println(i);
+			sqlSession.commit();
+		&#125;
+	&#125;</code></pre></div>
+
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ul>
+<li>在xml中使用对象中的对象的属性的时候，用对象.属性如：#{proper.id})</li>
+</ul>
+
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/mybatis/">mybatis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/mybatis%E5%9F%BA%E7%A1%80/">mybatis基础</a>
+                    
+                  </div>
                 
               </div>
               
@@ -220,9 +268,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/19/Spring%20cloud/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83SpringCloudConfig/">
+                      <a href="/2020/07/19/mybatis/5%E4%BC%A0%E9%80%92%E5%AF%B9%E8%B1%A1%E5%8F%82%E6%95%B0/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring cloud/配置中心SpringCloudConfig</span>
+                        <span class="hidden-mobile">传递自定义对象类型参数</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -230,8 +278,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/19/List/config/">
-                        <span class="hidden-mobile">List/config</span>
+                      <a href="/2020/07/19/mybatis/7%E6%8E%A5%E6%94%B6%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE/">
+                        <span class="hidden-mobile">接受复杂对象</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -370,7 +418,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "List/stream&nbsp;",
+        "传递复杂对象&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="Hello Word!">
   <meta name="author" content="Byh">
   <meta name="keywords" content="">
   <title>Y2L</title>
@@ -168,59 +168,6 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95define%E4%B8%8Econd/">基本语法define与cond</a>
-
-      <a href="/2020/07/19/List/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95define%E4%B8%8Econd/" class="index-excerpt">
-        
-        
-          
-        
-        <div>开始Lisp
-
-基本加减乘除
-加&gt;(+ 1 2)3
-减&gt;(- 2 1)1
-乘&gt;(* 1 2 3)6
-除&gt;(/ 4 2) 2
-
-
-
-
-define
-定义一个事物&gt;(define size 2)&gt;size2&gt;(* size 3)6  
- 定义成无参&gt;(define fun (+ size 1) &gt;fun3定义成有参&gt; (define (fun</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/scheme/">scheme</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/scheme%E5%9F%BA%E7%A1%80/">scheme基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/List/%E5%AF%B9%E8%A1%A8%E5%AF%B9%E6%A0%91/">对表对树</a>
 
       <a href="/2020/07/19/List/%E5%AF%B9%E8%A1%A8%E5%AF%B9%E6%A0%91/" class="index-excerpt">
@@ -326,59 +273,87 @@ memq用于检查符号是不是在表中如果在表中就返回这个符号第�
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">基本数据类型</a>
+      <a class="index-header" href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9/">序对</a>
 
-      <a href="/2020/07/19/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="index-excerpt">
+      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9/" class="index-excerpt">
         
         
           
         
         <div>
-在java中有8个基本数据类型
+let的一个用法
+&gt; (let ((fun (lambda (x) (+ 1 x))))
+    (fun 2))
+3
+
+let 里面的属性也可以是lambda
 
 
+序对
 
-基本数据类型
-大小
-他们的包装类
-默认值
+cons一个特殊的数据结构scheme中只能用两个例：
 
+&gt; (cons 1 3)
+(1 . 3)
+&gt; (cons 1 77)
+(1 . 77)
 
+当使用三个的时候
 
-int
-32 bits
-Integer
-0
+&gt; (cons 1 2 3)
+E</div>
+      </a>
 
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/scheme/">scheme</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/scheme%E5%9F%BA%E7%A1%80/">scheme基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
 
-short
-16 bits
-Short
-0
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/Java/%E4%BD%9C%E7%94%A8%E5%9F%9F/">作用域</a>
 
+      <a href="/2020/07/19/Java/%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>作用域
+用来确定变量名的可见性和他们的生命周期就是一对大括号{}大括号外面的不能访问到大括号里面的数据
 
-long
-64 bits
-Long
-0
+&#123;
+   int a=1;
+   &#123;
+       int b=1;
+   &#125;
+   int c=1;
+&#125;
 
-
-float
-32 bits
-Float
-0.0f
-
-
-double
-64 bits
-Double
-0.0d
-
-
-char
-16 bits
-Character
-\u0000(</div>
+对象作用域
+java对象作用域和基本数据类型的作用域不一样，java对象是由jvm中的gc完成对象的销毁，只要gc不清理那么java对象就会一直</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -400,56 +375,6 @@ Character
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/">序对应用</a>
-
-      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/" class="index-excerpt">
-        
-        
-          
-        
-        <div>cons car cdr 的一个小实现&gt; (define (car x)
-    (x 0))
-&gt; (define (cdr x)
-    (x 1))
-&gt; (define (cons x y)
-    (define (tem z)
-      (cond ((= 0 z) x)
-        ((= 1 z) y)))
-    tem
-     )
-&gt; (car (c</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/scheme/">scheme</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/scheme%E7%BB%83%E4%B9%A0/">scheme练习</a>
             
           </div>
         
@@ -559,66 +484,6 @@ java的数组在使用的时候会检查是否越界，代价就是没有c，c++
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/">class分析</a>
-
-      <a href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/" class="index-excerpt">
-        
-        
-          
-        
-        <div>class类分析
-
-
-class类的组成
-魔数（Magic）
-版本号（Version）
-常量池（constant_pool) 
-访问标志（access_flag) 
-当前类索引（this_class) 
-父类索引（super_class) 
-接口索引 （interfaces） 
-字段表（fields） 
-方法表（methods） 
-附加属性（attributes） 
-
-
-
-
-
-魔数（Magic）
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Jvm/">Jvm</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/jvm%E5%9F%BA%E7%A1%80/">jvm基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/kubernetes/Pod/">pod简单操作</a>
 
       <a href="/2020/07/19/kubernetes/Pod/" class="index-excerpt">
@@ -633,13 +498,12 @@ kubectl create -f yaml-name.yaml
 
 -   获取yaml格式的pod完整定义
 
-    ``` shell
+    ``` 
     kubectl get po pod-name -o yaml
 
 -   po 是pod的缩写
-
 获取json格式的pod完整定义
-kube</div>
+kubectl ge</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -688,6 +552,104 @@ pom.xml 加入 依赖
   &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
   &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
   &lt;version&</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/mybatis/">mybatis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mybatis%E5%9F%BA%E7%A1%80/">mybatis基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/mybatis/2%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/">基本用法</a>
+
+      <a href="/2020/07/19/mybatis/2%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前提
+在数据库中有一个表
+create table t1
+(
+    id       int(16)     not null,
+    name     varchar(32) not null,
+    password char(32)    not null,
+    constraint id
+        unique (id)
+);
+
+alter table t1
+    add</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/mybatis/">mybatis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mybatis%E5%9F%BA%E7%A1%80/">mybatis基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/mybatis/3%E4%BC%A0%E9%80%92%E7%AE%80%E5%8D%95%E5%8F%82%E6%95%B0/">传递简单参数</a>
+
+      <a href="/2020/07/19/mybatis/3%E4%BC%A0%E9%80%92%E7%AE%80%E5%8D%95%E5%8F%82%E6%95%B0/" class="index-excerpt">
+        
+        
+          
+        
+        <div>开始1. 在接口中增加一个方法public List&lt;t1Item&gt; getT1ById(@Param("id") int id);
+
+
+
+2. 在mapper配置文件中编写对应的标签
+&lt;select id="getT1ById" resultType="com.example.mybatis.t1Item"&gt;
+     select * from t1 where id=</div>
       </a>
 
       <div class="index-btm post-metas">
