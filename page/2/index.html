@@ -168,65 +168,6 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/">基本函数</a>
-
-      <a href="/2020/07/19/List/%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/" class="index-excerpt">
-        
-        
-          
-        
-        <div>How to Design Programs一些基本的函数String
-string-append :将多个string连接起来
-  &gt;(string-append "hello" "word")
-helloword
-
-
-
-
-
-
-string-length :计算string的字符个数
-  &gt;(string-length "helloword")
-9
-
-
-
-
-
-
-string-&gt;</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/scheme/">scheme</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/scheme%E5%9F%BA%E7%A1%80/">scheme基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/List/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95define%E4%B8%8Econd/">基本语法define与cond</a>
 
       <a href="/2020/07/19/List/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95define%E4%B8%8Econd/" class="index-excerpt">
@@ -385,26 +326,207 @@ memq用于检查符号是不是在表中如果在表中就返回这个符号第�
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/Java/%E4%BD%9C%E7%94%A8%E5%9F%9F/">作用域</a>
+      <a class="index-header" href="/2020/07/19/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">基本数据类型</a>
 
-      <a href="/2020/07/19/Java/%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="index-excerpt">
+      <a href="/2020/07/19/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="index-excerpt">
         
         
           
         
-        <div>作用域
-用来确定变量名的可见性和他们的生命周期就是一对大括号{}大括号外面的不能访问到大括号里面的数据
+        <div>
+在java中有8个基本数据类型
 
-&#123;
-   int a=1;
-   &#123;
-       int b=1;
-   &#125;
-   int c=1;
-&#125;
 
-对象作用域
-java对象作用域和基本数据类型的作用域不一样，java对象是由jvm中的gc完成对象的销毁，只要gc不清理那么java对象就会一直</div>
+
+基本数据类型
+大小
+他们的包装类
+默认值
+
+
+
+int
+32 bits
+Integer
+0
+
+
+short
+16 bits
+Short
+0
+
+
+long
+64 bits
+Long
+0
+
+
+float
+32 bits
+Float
+0.0f
+
+
+double
+64 bits
+Double
+0.0d
+
+
+char
+16 bits
+Character
+\u0000(</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/">序对应用</a>
+
+      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9%E5%BA%94%E7%94%A8/" class="index-excerpt">
+        
+        
+          
+        
+        <div>cons car cdr 的一个小实现&gt; (define (car x)
+    (x 0))
+&gt; (define (cdr x)
+    (x 1))
+&gt; (define (cons x y)
+    (define (tem z)
+      (cond ((= 0 z) x)
+        ((= 1 z) y)))
+    tem
+     )
+&gt; (car (c</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/scheme/">scheme</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/scheme%E7%BB%83%E4%B9%A0/">scheme练习</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/List/%E7%BB%83%E4%B9%A0_%E6%8D%A2%E9%9B%B6%E9%92%B1%E7%9A%84%E6%96%B9%E5%BC%8F/">换零钱的方式</a>
+
+      <a href="/2020/07/19/List/%E7%BB%83%E4%B9%A0_%E6%8D%A2%E9%9B%B6%E9%92%B1%E7%9A%84%E6%96%B9%E5%BC%8F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>练习
+
+
+换零钱方式统计
+例：将1美元换成 半美元，四分之一美元，十美分，五美分，一美分
+&gt; (define (cc amount kinds-of-coins)
+        (cond ((= amount 0) 1)
+          ((or (&lt; amount 0) (= kinds-of-coins 0)) 0)
+          (else (+ (cc amoun</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/scheme/">scheme</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/scheme%E7%BB%83%E4%B9%A0/">scheme练习</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/">数组</a>
+
+      <a href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/" class="index-excerpt">
+        
+        
+          
+        
+        <div>数组
+数组在定义的时候必须确定其大小如：
+
+int[] A= new int[100];
+int[] B=&#123;1,2,3,4,5);
+在jvm内存分配中
+数组分配在堆中。
+用其数组引用使用数组。
+java的数组在使用的时候会检查是否越界，代价就是没有c，c++速度快。不过比c，c++安全。
+
+</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -497,189 +619,6 @@ class类的组成
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/List/%E7%BB%83%E4%B9%A0_%E6%8D%A2%E9%9B%B6%E9%92%B1%E7%9A%84%E6%96%B9%E5%BC%8F/">换零钱的方式</a>
-
-      <a href="/2020/07/19/List/%E7%BB%83%E4%B9%A0_%E6%8D%A2%E9%9B%B6%E9%92%B1%E7%9A%84%E6%96%B9%E5%BC%8F/" class="index-excerpt">
-        
-        
-          
-        
-        <div>练习
-
-
-换零钱方式统计
-例：将1美元换成 半美元，四分之一美元，十美分，五美分，一美分
-&gt; (define (cc amount kinds-of-coins)
-        (cond ((= amount 0) 1)
-          ((or (&lt; amount 0) (= kinds-of-coins 0)) 0)
-          (else (+ (cc amoun</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/scheme/">scheme</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/scheme%E7%BB%83%E4%B9%A0/">scheme练习</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">基本数据类型</a>
-
-      <a href="/2020/07/19/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="index-excerpt">
-        
-        
-          
-        
-        <div>
-在java中有8个基本数据类型
-
-
-
-基本数据类型
-大小
-他们的包装类
-默认值
-
-
-
-int
-32 bits
-Integer
-0
-
-
-short
-16 bits
-Short
-0
-
-
-long
-64 bits
-Long
-0
-
-
-float
-32 bits
-Float
-0.0f
-
-
-double
-64 bits
-Double
-0.0d
-
-
-char
-16 bits
-Character
-\u0000(</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/">数组</a>
-
-      <a href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/" class="index-excerpt">
-        
-        
-          
-        
-        <div>数组
-数组在定义的时候必须确定其大小如：
-
-int[] A= new int[100];
-int[] B=&#123;1,2,3,4,5);
-在jvm内存分配中
-数组分配在堆中。
-用其数组引用使用数组。
-java的数组在使用的时候会检查是否越界，代价就是没有c，c++速度快。不过比c，c++安全。
-
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/kubernetes/Pod/">pod简单操作</a>
 
       <a href="/2020/07/19/kubernetes/Pod/" class="index-excerpt">
@@ -694,13 +633,13 @@ kubectl create -f yaml-name.yaml
 
 -   获取yaml格式的pod完整定义
 
-    ```shell
+    ``` shell
     kubectl get po pod-name -o yaml
 
 -   po 是pod的缩写
 
 获取json格式的pod完整定义
-kubec</div>
+kube</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -722,6 +661,54 @@ kubec</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/kubernets%E5%9F%BA%E7%A1%80/">kubernets基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/mybatis/1%E5%9F%BA%E6%9C%AC/">基本依赖</a>
+
+      <a href="/2020/07/19/mybatis/1%E5%9F%BA%E6%9C%AC/" class="index-excerpt">
+        
+        
+          
+        
+        <div>参考
+https://mybatis.org/mybatis-3/zh/getting-started.html
+
+配置
+pom.xml 加入 依赖
+&lt;dependency&gt;
+  &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+  &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+  &lt;version&</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/mybatis/">mybatis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mybatis%E5%9F%BA%E7%A1%80/">mybatis基础</a>
             
           </div>
         

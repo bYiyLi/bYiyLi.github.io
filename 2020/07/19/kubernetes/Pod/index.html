@@ -211,7 +211,7 @@
 
 -   获取yaml格式的pod完整定义
 
-    ```shell
+    ``` shell
     kubectl <span class="hljs-keyword">get</span> po pod-<span class="hljs-built_in">name</span> -o yaml</code></pre></div></div>
 
 -   po 是pod的缩写</code></pre>
@@ -228,7 +228,7 @@
 <div class="hljs"><pre><code class="hljs actionscript">
 -   获取指定空间的所有pod
 
-    -   ```shell
+    -   ``` shell
         kubectl <span class="hljs-keyword">get</span> po --<span class="hljs-keyword">namespace</span> <span class="hljs-keyword">namespace</span></code></pre></div></div>
 
 
@@ -246,7 +246,7 @@
 
 -   -c 获取pod中指定容器的日志
 
-    -   ```shell
+    -   ``` shell
          kubectl logs kubia-manual -c kubia</code></pre></div></div>
 
 -   在kubia-manual Pod中的kubia容器
@@ -262,7 +262,7 @@
 <ul>
 <li><div class="hljs"><pre><code class="shell">kubectl port-forward kubia-manual 8888:8080
 <div class="hljs"><pre><code class="hljs autohotkey">
--   ```shell
+-   ``` shell
 <span class="hljs-title">    cuel localhost:</span><span class="hljs-number">8888</span></code></pre></div></div>
 </code></pre>
 </li>
@@ -286,7 +286,7 @@
 
 <span class="hljs-comment">###  1. 一个简单的yaml</span>
 
-<span class="hljs-bullet">-</span>   <span class="hljs-string">```yaml</span>
+<span class="hljs-bullet">-</span>   <span class="hljs-string">```</span> <span class="hljs-string">yaml</span>
     <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
     <span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
     <span class="hljs-attr">metadata:</span>
@@ -304,10 +304,10 @@
 
 -   具有2个标签
 
-    -   ```yaml
+    -   ``` yaml
         creation-method: manual
         <div class="hljs"><pre><code class="hljs autohotkey">
--   ```yaml
+-   ``` yaml
 <span class="hljs-title">    env:</span> prod</code></pre></div>
 
 
@@ -321,7 +321,7 @@
 
 ### 3. 获取含有label的所有pod
 
--   ```shell
+-   ``` shell
     kubectl get po -L label-name,label-name.....</code></pre></div></div>
 
 
@@ -337,7 +337,7 @@
 
 ### <span class="hljs-number">5</span>. 添加<span class="hljs-keyword">label</span>
 
--    ```shell
+-    ``` shell
     k <span class="hljs-keyword">label</span> pod pod-<span class="hljs-keyword">name</span> <span class="hljs-keyword">name</span>=ku</code></pre></div></div>
 
 -   注意 原来pod不能含有这个标签
@@ -379,9 +379,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/19/Java/%E6%95%B0%E7%BB%84/">
+                      <a href="/2020/07/19/ASM/class%E7%B1%BB%E5%88%86%E6%9E%90/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数组</span>
+                        <span class="hidden-mobile">class分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -389,8 +389,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/19/List/%E5%BA%8F%E5%AF%B9/">
-                        <span class="hidden-mobile">序对</span>
+                      <a href="/2020/07/19/mybatis/1%E5%9F%BA%E6%9C%AC/">
+                        <span class="hidden-mobile">基本依赖</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

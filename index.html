@@ -168,20 +168,34 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/hello-world/">hello-world</a>
+      <a class="index-header" href="/2020/07/20/kubernetes/02%E4%B8%BAPod%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84YAML/">kubernetes/02为Pod创建一个简单的YAML</a>
 
-      <a href="/2020/07/19/hello-world/" class="index-excerpt">
+      <a href="/2020/07/20/kubernetes/02%E4%B8%BAPod%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84YAML/" class="index-excerpt">
         
         
           
         
-        <div>Hello Word</div>
+        <div>一个简单的yaml文件apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual
+spec:
+  containers:
+  - image: luksa/kubia
+    name: kubia
+    ports:
+    - containerPort: 8081
+      protocol: TCP
+
+
+
+</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-20
           </div>
         
         
@@ -203,72 +217,6 @@
         
         <div>开始
 mybatis的类型处理器就是java类型与数据库类型互相映射
-
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/kubernetes/config/">kubernetes/config</a>
-
-      <a href="/2020/07/19/kubernetes/config/" class="index-excerpt">
-        
-        
-          
-        
-        <div>[{"name":"安装","type":"md","url":"./res/笔记/kubernets/01安装.md"}]</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
-          </div>
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/07/19/kubernetes/02%E4%B8%BAPod%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84YAML/">kubernetes/02为Pod创建一个简单的YAML</a>
-
-      <a href="/2020/07/19/kubernetes/02%E4%B8%BAPod%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84YAML/" class="index-excerpt">
-        
-        
-          
-        
-        <div>一个简单的yaml文件apiVersion: v1
-kind: Pod
-metadata:
-  name: kubia-manual
-spec:
-  containers:
-  - image: luksa/kubia
-    name: kubia
-    ports:
-    - containerPort: 8081
-      protocol: TCP
-
-
 
 </div>
       </a>
@@ -399,6 +347,58 @@ pom配置
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/Java/%E4%BD%9C%E7%94%A8%E5%9F%9F/">作用域</a>
+
+      <a href="/2020/07/19/Java/%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>作用域
+用来确定变量名的可见性和他们的生命周期就是一对大括号{}大括号外面的不能访问到大括号里面的数据
+
+&#123;
+   int a=1;
+   &#123;
+       int b=1;
+   &#125;
+   int c=1;
+&#125;
+
+对象作用域
+java对象作用域和基本数据类型的作用域不一样，java对象是由jvm中的gc完成对象的销毁，只要gc不清理那么java对象就会一直</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/List/lambda%E4%B8%8Elet/">lambda与let</a>
 
       <a href="/2020/07/19/List/lambda%E4%B8%8Elet/" class="index-excerpt">
@@ -476,6 +476,65 @@ car cdr cons 用来操作序对然而如果用序对写成
 &gt; (car (car tem1))
 1
 &gt; (car (c</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/scheme/">scheme</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/scheme%E5%9F%BA%E7%A1%80/">scheme基础</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/List/%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/">基本函数</a>
+
+      <a href="/2020/07/19/List/%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/" class="index-excerpt">
+        
+        
+          
+        
+        <div>How to Design Programs一些基本的函数String
+string-append :将多个string连接起来
+  &gt;(string-append "hello" "word")
+helloword
+
+
+
+
+
+
+string-length :计算string的字符个数
+  &gt;(string-length "helloword")
+9
+
+
+
+
+
+
+string-&gt;</div>
       </a>
 
       <div class="index-btm post-metas">
