@@ -1,0 +1,183 @@
+<!-- build time:Thu Jul 30 2020 16:11:19 GMT+0800 (CST) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content="Hello Word!"><meta name="author" content="Byh"><meta name="keywords" content=""><title>Rabbitmq/SpringBoot整合 - Y2L</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/solarized-dark.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css"><link rel="stylesheet" href="/css/main.css"><script src="/js/utils.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a></li></ul></div></div></nav><div class="view intro-2" id="background" parallax="true" style="background:url(/img/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container text-center white-text fadeInUp"><span class="h2" id="subtitle"></span><div class="mt-3 post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-07-30 16:10">2020年7月30日 下午</time></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 1k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 65 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><div class="post-content mx-auto" id="post"><article class="markdown-body"><h1 id="SpringBoot整合"><a href="#SpringBoot整合" class="headerlink" title="SpringBoot整合"></a>SpringBoot整合</h1><h2 id="pom依赖配置"><a href="#pom依赖配置" class="headerlink" title="pom依赖配置"></a>pom依赖配置</h2><div class="hljs"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div><h2 id="yml配置"><a href="#yml配置" class="headerlink" title="yml配置"></a>yml配置</h2><div class="hljs"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span>
+  <span class="hljs-attr">rabbitmq:</span>
+    <span class="hljs-attr">host:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.171</span>
+    <span class="hljs-attr">username:</span> <span class="hljs-string">admin</span>
+    <span class="hljs-attr">password:</span> <span class="hljs-string">admin</span>
+    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/text01</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">30672</span>
+    <span class="hljs-attr">publisher-confirm-type:</span> <span class="hljs-string">correlated</span> <span class="hljs-comment">#必须配置这个才会确认回调 confirm</span>
+    <span class="hljs-attr">publisher-returns:</span> <span class="hljs-literal">true</span> <span class="hljs-comment">#return回调 </span>
+    <span class="hljs-attr">listener:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">simple</span>
+      <span class="hljs-attr">simple:</span>
+        <span class="hljs-attr">acknowledge-mode:</span> <span class="hljs-string">manual</span> <span class="hljs-comment">#手动确认ack</span>
+        <span class="hljs-attr">prefetch:</span> <span class="hljs-number">10</span> <span class="hljs-comment">#限制每次发送一条数据。</span>
+        <span class="hljs-attr">concurrency:</span> <span class="hljs-number">3</span> <span class="hljs-comment">#同一个队列启动几个消费者</span>
+        <span class="hljs-attr">max-concurrency:</span> <span class="hljs-number">3</span> <span class="hljs-comment">#启动消费者最大数量</span>
+        <span class="hljs-attr">default-requeue-rejected:</span> <span class="hljs-literal">true</span></code></pre></div><h2 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h2><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.demo;
+<span class="hljs-keyword">import</span> com.rabbitmq.client.Channel;
+<span class="hljs-keyword">import</span> org.springframework.amqp.core.AmqpTemplate;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.connection.CorrelationData;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+<span class="hljs-keyword">import</span> org.springframework.transaction.TransactionManager;
+<span class="hljs-keyword">import</span> java.util.UUID;
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Producer</span> </span>&#123;
+    <span class="hljs-keyword">final</span>
+    RabbitTemplate rabbitTemplate;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Producer</span><span class="hljs-params">(RabbitTemplate rabbitTemplate)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.rabbitTemplate = rabbitTemplate;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">send</span><span class="hljs-params">(String exchange,String key,String meg)</span></span>&#123;
+        
+        <span class="hljs-keyword">this</span>.rabbitTemplate.convertAndSend(exchange,key,meg,<span class="hljs-keyword">new</span> CorrelationData(UUID.randomUUID().toString()));
+    &#125;
+&#125;</code></pre></div><h2 id="DirectConsumer"><a href="#DirectConsumer" class="headerlink" title="DirectConsumer"></a>DirectConsumer</h2><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.demo;
+<span class="hljs-keyword">import</span> com.rabbitmq.client.Channel;
+<span class="hljs-keyword">import</span> org.springframework.amqp.core.ExchangeTypes;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.*;
+<span class="hljs-keyword">import</span> org.springframework.amqp.support.AmqpHeaders;
+<span class="hljs-keyword">import</span> org.springframework.messaging.handler.annotation.Headers;
+<span class="hljs-keyword">import</span> org.springframework.messaging.handler.annotation.Payload;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.Map;
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DirectConsumer</span> </span>&#123;
+    <span class="hljs-meta">@RabbitListener</span>(containerFactory = <span class="hljs-string">"rabbitListenerContainerFactory"</span>,bindings=<span class="hljs-meta">@QueueBinding</span>(
+            value=<span class="hljs-meta">@Queue</span>(value=<span class="hljs-string">"directQueue"</span>,autoDelete=<span class="hljs-string">"false"</span>),
+            exchange=<span class="hljs-meta">@Exchange</span>(value=<span class="hljs-string">"directEx"</span>,type= ExchangeTypes.DIRECT),
+            key = &#123;<span class="hljs-string">"1.2"</span>,<span class="hljs-string">"1.3"</span>&#125;
+    ),ackMode = <span class="hljs-string">"MANUAL"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler</span><span class="hljs-params">(@Payload String body, @Headers Map&lt;String,Object&gt; headers, Channel channel)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        System.out.println(<span class="hljs-string">"handler:   "</span>+body);
+        <span class="hljs-comment">//channel.basicNack((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false,false);</span>
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),<span class="hljs-keyword">false</span>);
+        <span class="hljs-comment">//headers.forEach((k,v)-&gt;&#123;System.out.println("key:"+k+"    value:"+v);&#125;);</span>
+    &#125;
+    <span class="hljs-meta">@RabbitListener</span>(containerFactory = <span class="hljs-string">"rabbitListenerContainerFactory"</span>,bindings=<span class="hljs-meta">@QueueBinding</span>(
+            value=<span class="hljs-meta">@Queue</span>(value=<span class="hljs-string">"directQueue"</span>,autoDelete=<span class="hljs-string">"false"</span>),
+            exchange=<span class="hljs-meta">@Exchange</span>(value=<span class="hljs-string">"directEx"</span>,type= ExchangeTypes.DIRECT),
+            key = &#123;<span class="hljs-string">"1.2"</span>,<span class="hljs-string">"1.3"</span>&#125;
+    ),ackMode = <span class="hljs-string">"MANUAL"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler1</span><span class="hljs-params">(@Payload String body, @Headers Map&lt;String,Object&gt; headers, Channel channel)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;
+        System.out.println(<span class="hljs-string">"handler1:   "</span>+body);
+        <span class="hljs-comment">//channel.basicNack((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false,false);</span>
+        Thread.sleep(<span class="hljs-number">1000</span>);
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),<span class="hljs-keyword">false</span>);
+        <span class="hljs-comment">//headers.forEach((k,v)-&gt;&#123;System.out.println("key:"+k+"    value:"+v);&#125;);</span>
+    &#125;
+&#125;</code></pre></div><h2 id="FanoutConsumer"><a href="#FanoutConsumer" class="headerlink" title="FanoutConsumer"></a>FanoutConsumer</h2><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.demo;
+<span class="hljs-keyword">import</span> com.rabbitmq.client.Channel;
+<span class="hljs-keyword">import</span> org.springframework.amqp.core.ExchangeTypes;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.*;
+<span class="hljs-keyword">import</span> org.springframework.amqp.support.AmqpHeaders;
+<span class="hljs-keyword">import</span> org.springframework.messaging.handler.annotation.Headers;
+<span class="hljs-keyword">import</span> org.springframework.messaging.handler.annotation.Payload;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.Map;
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FanoutConsumer</span> </span>&#123;
+    <span class="hljs-meta">@RabbitListener</span>(bindings = <span class="hljs-meta">@QueueBinding</span>(
+            value = <span class="hljs-meta">@Queue</span>(value = <span class="hljs-string">"fanoutQueue01"</span>,autoDelete = <span class="hljs-string">"true"</span>),
+            exchange = <span class="hljs-meta">@Exchange</span>(value = <span class="hljs-string">"fanout"</span>,type = ExchangeTypes.FANOUT)
+    ),ackMode = <span class="hljs-string">"MANUAL"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler1</span><span class="hljs-params">(@Payload String body, @Headers Map&lt;String,Object&gt; headers, Channel channel)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;
+        System.out.println(<span class="hljs-string">"handler1:   "</span>+body);
+        <span class="hljs-comment">//channel.basicNack((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false,false);</span>
+        Thread.sleep(<span class="hljs-number">1000</span>);
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),<span class="hljs-keyword">false</span>);
+        <span class="hljs-comment">//headers.forEach((k,v)-&gt;&#123;System.out.println("key:"+k+"    value:"+v);&#125;);</span>
+    &#125;
+    <span class="hljs-meta">@RabbitListener</span>(bindings = <span class="hljs-meta">@QueueBinding</span>(
+            value = <span class="hljs-meta">@Queue</span>(value = <span class="hljs-string">"fanoutQueue02"</span>,autoDelete = <span class="hljs-string">"true"</span>),
+            exchange = <span class="hljs-meta">@Exchange</span>(value = <span class="hljs-string">"fanout"</span>,type = ExchangeTypes.FANOUT)
+    ),ackMode = <span class="hljs-string">"MANUAL"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler</span><span class="hljs-params">(@Payload String body, @Headers Map&lt;String,Object&gt; headers, Channel channel)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;
+        System.out.println(<span class="hljs-string">"handler:   "</span>+body);
+        <span class="hljs-comment">//channel.basicNack((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false,false);</span>
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),<span class="hljs-keyword">false</span>);
+        <span class="hljs-comment">//headers.forEach((k,v)-&gt;&#123;System.out.println("key:"+k+"    value:"+v);&#125;);</span>
+    &#125;
+&#125;</code></pre></div><h2 id="TopicConsumer"><a href="#TopicConsumer" class="headerlink" title="TopicConsumer"></a>TopicConsumer</h2><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.demo;
+<span class="hljs-keyword">import</span> com.rabbitmq.client.Channel;
+<span class="hljs-keyword">import</span> org.springframework.amqp.core.ExchangeTypes;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.Exchange;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.Queue;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.QueueBinding;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;
+<span class="hljs-keyword">import</span> org.springframework.amqp.support.AmqpHeaders;
+<span class="hljs-keyword">import</span> org.springframework.messaging.handler.annotation.Headers;
+<span class="hljs-keyword">import</span> org.springframework.messaging.handler.annotation.Payload;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.Map;
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TopicConsumer</span> </span>&#123;
+    <span class="hljs-meta">@RabbitListener</span>(bindings = <span class="hljs-meta">@QueueBinding</span>(
+            value = <span class="hljs-meta">@Queue</span>(value = <span class="hljs-string">"topicQueue01"</span>,autoDelete = <span class="hljs-string">"true"</span>),
+            exchange = <span class="hljs-meta">@Exchange</span>(value = <span class="hljs-string">"topic"</span>,type = ExchangeTypes.TOPIC),
+            key = &#123;<span class="hljs-string">"#.1"</span>,<span class="hljs-string">"1.#"</span>&#125;
+    ),ackMode = <span class="hljs-string">"MANUAL"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler1</span><span class="hljs-params">(@Payload String body, @Headers Map&lt;String,Object&gt; headers, Channel channel)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;
+        System.out.println(headers.get(AmqpHeaders.RECEIVED_ROUTING_KEY)+<span class="hljs-string">"topicQueue01:   "</span>+body);
+        <span class="hljs-comment">//channel.basicNack((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false,false);</span>
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),<span class="hljs-keyword">false</span>);
+        <span class="hljs-comment">//headers.forEach((k,v)-&gt;&#123;System.out.println("key:"+k+"    value:"+v);&#125;);</span>
+    &#125;
+    <span class="hljs-meta">@RabbitListener</span>(bindings = <span class="hljs-meta">@QueueBinding</span>(
+            value = <span class="hljs-meta">@Queue</span>(value = <span class="hljs-string">"topicQueue02"</span>,autoDelete = <span class="hljs-string">"true"</span>),
+            exchange = <span class="hljs-meta">@Exchange</span>(value = <span class="hljs-string">"topic"</span>,type = ExchangeTypes.TOPIC),
+            key = &#123;<span class="hljs-string">"#.2"</span>,<span class="hljs-string">"2.#"</span>,<span class="hljs-string">"3.*"</span>&#125;
+    ),ackMode = <span class="hljs-string">"MANUAL"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handler</span><span class="hljs-params">(@Payload String body, @Headers Map&lt;String,Object&gt; headers, Channel channel)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;
+        System.out.println(headers.get(AmqpHeaders.RECEIVED_ROUTING_KEY)+<span class="hljs-string">"topicQueue02:                          "</span>+body);
+        <span class="hljs-comment">//channel.basicNack((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false,false);</span>
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),<span class="hljs-keyword">false</span>);
+        <span class="hljs-comment">//headers.forEach((k,v)-&gt;&#123;System.out.println("key:"+k+"    value:"+v);&#125;);</span>
+    &#125;
+&#125;</code></pre></div><h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.demo;
+<span class="hljs-keyword">import</span> org.junit.jupiter.api.Test;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.connection.CorrelationData;
+<span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;
+<span class="hljs-meta">@SpringBootTest</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoApplicationTests</span> </span>&#123;
+    <span class="hljs-meta">@Autowired</span>
+    Producer producer;
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Text</span><span class="hljs-params">()</span> </span>&#123;
+        producer.rabbitTemplate.setReturnCallback((message,replyCode,replyText,exchange,routingKey) -&gt;&#123;
+                System.out.println(<span class="hljs-string">"Return"</span>);
+            &#125;
+        );
+        producer.rabbitTemplate.setConfirmCallback(<span class="hljs-keyword">new</span> RabbitTemplate.ConfirmCallback() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">confirm</span><span class="hljs-params">(CorrelationData correlationData, <span class="hljs-keyword">boolean</span> ack, String cause)</span> </span>&#123;
+                System.out.println(<span class="hljs-string">"Ack:"</span>+ack);
+            &#125;
+        &#125;);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10</span>;i++)&#123;
+            producer.send(<span class="hljs-string">"topic"</span>,i+<span class="hljs-string">".1"</span>,<span class="hljs-string">"Hello world:"</span>+i);
+        &#125;
+    &#125;
+&#125;</code></pre></div></article><hr><div><div class="post-metas mb-3"></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext row"><div class="post-prev col-6"><a href="/2020/07/30/Rabbitmq/fanout%E6%A8%A1%E5%BC%8F/"><i class="iconfont icon-arrowleft"></i> <span class="hidden-mobile">Rabbitmq/fanout模式</span> <span class="visible-mobile">上一篇</span></a></div><div class="post-next col-6"><a href="/2020/07/20/mybatis/9%E7%B1%BB%E5%9E%8B%E5%A4%84%E7%90%86%E5%99%A8/"><span class="hidden-mobile">mybatis/9类型处理器</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></div></div></div></div></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></div></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/main.js"></script><script src="/js/lazyload.js"></script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:"article.markdown-body",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:3,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","Rabbitmq/SpringBoot整合&nbsp;"],cursorChar:"_",typeSpeed:90,loop:!0});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script><script>anchors.options = {
+      placement: "right",
+      visible: "always",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script><script>!function(e,r){var o,n=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)},function(t){var a=r.createElement("style");a.type="text/css";try{a.appendChild(r.createTextNode(t))}catch(e){a.styleSheet.cssText=t}r.getElementsByTagName("head")[0].appendChild(a)}(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o="function"==typeof e.onclick&&e.onclick,e.onclick=function(e){var t,a;o&&o(),t=e,(a=r.createElement("div")).className="heart",n.push({el:a,x:t.clientX-5,y:t.clientY-5,scale:1,alpha:1,color:"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}),r.body.appendChild(a)},function e(){for(var t=0;t<n.length;t++)n[t].alpha<=0?(r.body.removeChild(n[t].el),n.splice(t,1)):(n[t].y--,n[t].scale+=.004,n[t].alpha-=.013,n[t].el.style.cssText="left:"+n[t].x+"px;top:"+n[t].y+"px;opacity:"+n[t].alpha+";transform:scale("+n[t].scale+","+n[t].scale+") rotate(45deg);background:"+n[t].color+";z-index:99999");requestAnimationFrame(e)}()}(window,document)</script></body></html><!-- rebuild by neat -->
