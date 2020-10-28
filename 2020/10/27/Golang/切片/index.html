@@ -1,0 +1,124 @@
+<!-- build time:Wed Oct 28 2020 11:02:46 GMT+0800 (CST) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content="Hello Word!"><meta name="author" content="Byh"><meta name="keywords" content=""><title>切片 - Y2L</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/solarized-dark.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css"><link rel="stylesheet" href="/css/main.css"><script src="/js/utils.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a></li></ul></div></div></nav><div class="view intro-2" id="background" parallax="true" style="background:url(/img/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container text-center white-text fadeInUp"><span class="h2" id="subtitle"></span><div class="mt-3 post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-10-27 00:00">2020年10月27日 凌晨</time></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 1.8k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 71 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><div class="post-content mx-auto" id="post"><article class="markdown-body"><hr><h1 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h1><blockquote><p>切片实际上是一个Go的数据结构，我们可以增加更多的值。与数组相同的是，切片由多个相同类型的元素构成。不同的是，切片允许我们在结尾追加更多的元素。</p></blockquote><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><blockquote><p>使用一对空的方括号，后面跟着这个切片所保存的元素类型。</p><ul><li><p>除了不指定大小，与声明一个数组变量的语法完全相同。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028092029558.png" srcset="/img/loading.gif" alt="image-20201028092029558"></p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028092104428.png" srcset="/img/loading.gif" alt="image-20201028092104428"></p><p>不像数组变量，声明切片变量并不会自动创建一个切片。为此，你可以调用内建的make函数。传递给make你想要创建的切片的类型（这个类型与你想要赋值的变量的类型相同）和需要创建的切片的长度。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	<span class="hljs-keyword">var</span> sta []<span class="hljs-keyword">string</span>
+ 	sta=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">7</span>)
+ 	fmt.Printf(<span class="hljs-string">"%#v"</span>,sta)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028092458579.png" srcset="/img/loading.gif" alt="image-20201028092458579"></p></li></ul></blockquote><hr><h2 id="切片中元素的赋值和取值操作"><a href="#切片中元素的赋值和取值操作" class="headerlink" title="切片中元素的赋值和取值操作"></a>切片中元素的赋值和取值操作</h2><blockquote><p>当切片被创建后，切片中元素的赋值和取值操作语法与数组的相同。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	<span class="hljs-keyword">var</span> sta []<span class="hljs-keyword">string</span>
+ 	sta=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">7</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+ 	fmt.Printf(<span class="hljs-string">"%#v"</span>,sta)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028092820867.png" srcset="/img/loading.gif" alt="image-20201028092820867"></p></blockquote><hr><h2 id="推导出变量的类型"><a href="#推导出变量的类型" class="headerlink" title="推导出变量的类型"></a>推导出变量的类型</h2><blockquote><p>不必将声明变量和创建切片分成两步，使用一个短变量声明的make会自动帮你推导出变量的类型。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	sta:=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">8</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+ 	fmt.Printf(<span class="hljs-string">"%#v"</span>,sta)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028093118407.png" srcset="/img/loading.gif" alt="image-20201028093118407"></p></blockquote><hr><h2 id="切片操作"><a href="#切片操作" class="headerlink" title="切片操作"></a>切片操作</h2><blockquote><p>内建的函数len对于切片也和数组有相同的效果。将一个切片的变量传入len，会返回一个整型的长度值。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	sta:=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">8</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+ 	fmt.Print(<span class="hljs-built_in">len</span>(sta))
+ 	fmt.Printf(<span class="hljs-string">"%#v"</span>,sta)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028093301643.png" srcset="/img/loading.gif" alt="image-20201028093301643"></p><p>for和for…range对于切片的操作也和数组相同：</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	sta:=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">8</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+	<span class="hljs-keyword">for</span> i,v := <span class="hljs-keyword">range</span> sta &#123;
+		<span class="hljs-built_in">print</span>(i,<span class="hljs-string">":"</span>+v,<span class="hljs-string">" "</span>)
+	&#125;
+	<span class="hljs-built_in">println</span>()
+	<span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>;i&lt;<span class="hljs-built_in">len</span>(sta);i++&#123;
+		<span class="hljs-built_in">print</span>(i,<span class="hljs-string">":"</span>+sta[i],<span class="hljs-string">" "</span>)
+	&#125;
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028093637807.png" srcset="/img/loading.gif" alt="image-20201028093637807"></p></blockquote><hr><h2 id="切片字面量"><a href="#切片字面量" class="headerlink" title="切片字面量"></a>切片字面量</h2><blockquote><p>与数组相同，如果最初知道切片初始会有哪些值，可以使用切片字面量来通过这些值初始化切片。切片字面量看起来和数组字面量非常像，但是数组字面量在方括号中有数组的长度，而切片字面量的方括号中是空的。空的括号后面是切片储存的元素的类型，还有一个在花括号中的列表，列表中是每个元素的初始值。这里不需要调用make函数；</p><p>在代码中使用一个切片字面量会创造一个预填充的切片。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028093957913.png" srcset="/img/loading.gif" alt="image-20201028093957913"></p><ul><li>因为切片是建立在数组之上的。</li></ul></blockquote><hr><h2 id="切片运算符"><a href="#切片运算符" class="headerlink" title="切片运算符"></a>切片运算符</h2><blockquote><p>每一个切片都构建于一个底层的数组之上。实际上是底层的数组存储了切片的数据；切片仅仅是数组中的一部分（或者所有）元素的视图。</p><p>当你使用make函数或者切片字面量创建一个切片的时候，底层的数组会自动创建出来（只有通过切片，你才能访问它）。但是你也可以自己创建一个数组，然后再基于数组通过切片运算符创建一个切片。</p><p>切片运算符看起来像访问一个切片或者数组的某个元素的语法，但是它有两个索引：其中一个标识切片开始的位置，另一个标识切片在此位置之前结束。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	sta:=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">8</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+ 	stb:=sta[<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,sta)
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,stb)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028094338167.png" srcset="/img/loading.gif" alt="image-20201028094338167"></p></blockquote><ul><li>注意我们强调切片需要在第二个位置之前结束。切片应该包含从开始到第二个索引之前的元素。如果你使用underlyingArray[i：j]作为切片的运算符，生成的切片实际上包含元素underlyingArray[i]到元素underlyingArray[j-1]。</li></ul><blockquote><p>切片运算符默认需要两个索引。如果你忽略了开始的索引，0（数组的第一个元素）会被使用。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	sta:=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">8</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+ 	stb:=sta[:<span class="hljs-number">3</span>]
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,sta)
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,stb)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028095946816.png" srcset="/img/loading.gif" alt="image-20201028095946816"></p><p>如果你忽略了结束的索引，从底层数组的开始索引到数组结尾之间的所有元素都会被包含到结果切片中。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+ 	sta:=<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>,<span class="hljs-number">8</span>)
+ 	sta[<span class="hljs-number">2</span>]=<span class="hljs-string">"sss"</span>
+ 	stb:=sta[<span class="hljs-number">2</span>:]
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,sta)
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,stb)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028100049006.png" srcset="/img/loading.gif" alt="image-20201028100049006"></p></blockquote><h2 id="底层数组"><a href="#底层数组" class="headerlink" title="底层数组"></a>底层数组</h2><blockquote><p>片并不会自己保存任何数据，它仅仅是底层数组的元素的视图。你可以把切片看作一个显微镜，聚焦在胶片（底层数组）内容的特定部分。</p><p>使用切片的时候，仅仅可以操作通过切片可见的部分。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028100710272.png" srcset="/img/loading.gif" alt="image-20201028100710272"></p><p>每一个切片会是一个指向数组元素的子集的视图。切片甚至可以有重叠！</p></blockquote><hr><h2 id="修改底层数组，修改切片"><a href="#修改底层数组，修改切片" class="headerlink" title="修改底层数组，修改切片"></a>修改底层数组，修改切片</h2><blockquote><p>由于切片只是底层数组内容的视图，如果你修改底层数组，这些变化也会反映到切片。</p><p>给切片的一个元素赋一个新值也会修改底层数组相应的元素。</p><p>如果多个切片指向了同一个底层数组，数组的元素修改会反映给所有的切片。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">var</span> sta []<span class="hljs-keyword">int</span>=[]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;
+	stb:=sta[:<span class="hljs-number">5</span>]
+	stc:=sta[<span class="hljs-number">3</span>:]
+	sta[<span class="hljs-number">4</span>]=<span class="hljs-number">14</span>
+	stb[<span class="hljs-number">2</span>]=<span class="hljs-number">22</span>
+	stc[<span class="hljs-number">2</span>]=<span class="hljs-number">12</span>
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,sta)
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,stc)
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,stb)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028101522929.png" srcset="/img/loading.gif" alt="image-20201028101522929"></p><p>由于这些问题，你应该已经发现通常我们使用make和切片字面量来创建切片，而不是创建一个数组，再用一个切片在上面操作。</p><p>使用了make和切片字面量，你就不用关心底层数组了。</p></blockquote><hr><h2 id="“append”函数"><a href="#“append”函数" class="headerlink" title="“append”函数"></a>“append”函数</h2><blockquote><p>Go提供一个内建的函数append来将一个或者多个值追加到切片的末尾。它返回一个与原切片元素完全相同的并且在尾部追加了新元素的新的更大的切片。</p><p>你不需要记住你需要追加到尾部的新值的索引！仅仅调用append函数并且传入切片和你需要追加到末尾的值，你就会得到一个新的更长的切片。非常简单！</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">var</span> sta []<span class="hljs-keyword">int</span>=[]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;
+	<span class="hljs-comment">//sta:=[]int&#123;1,2,3&#125;</span>
+	stb := <span class="hljs-built_in">append</span>(sta, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>)
+	stc := stb[:]
+	sta[<span class="hljs-number">2</span>]=<span class="hljs-number">12</span>
+	stb[<span class="hljs-number">6</span>]=<span class="hljs-number">16</span>
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,sta)
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,stb)
+	fmt.Printf(<span class="hljs-string">"%#v\n"</span>,stc)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028103158285.png" srcset="/img/loading.gif" alt="image-20201028103158285"></p></blockquote><h2 id="变长参数函数"><a href="#变长参数函数" class="headerlink" title="变长参数函数"></a>变长参数函数</h2><blockquote><p>为了让函数的参数可变长，在函数声明中的最后的（或者仅有的）参数类型前使用省略号（…）。</p><p>Go为这种情况提供了一个特殊的语法。当我们调用一个可变长参数函数时，简单地在你传入的切片变量后增加省略号（…）即可。</p></blockquote><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"math"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(age ...<span class="hljs-keyword">float64</span>)</span> <span class="hljs-title">float64</span></span> &#123;
+	m:=math.Inf(<span class="hljs-number">-1</span>)
+	<span class="hljs-keyword">for</span> _,v := <span class="hljs-keyword">range</span> age &#123;
+		<span class="hljs-keyword">if</span> m&lt;v &#123;
+			m=v
+		&#125;
+	&#125;
+	<span class="hljs-keyword">return</span> m
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	m:=[]<span class="hljs-keyword">float64</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;
+	<span class="hljs-built_in">print</span>(max(m...))
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201028110114403.png" srcset="/img/loading.gif" alt="image-20201028110114403"></p></article><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/Golang/">Golang</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/Golang%E5%88%87%E7%89%87/">Golang切片</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext row"><div class="post-prev col-6"></div><div class="post-next col-6"><a href="/2020/10/26/Golang/%E6%95%B0%E7%BB%84/"><span class="hidden-mobile">数组</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></div></div></div></div></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?934a4490dae380d8ad4a788a3fb76c42";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></div></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/main.js"></script><script src="/js/lazyload.js"></script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:"article.markdown-body",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:3,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","切片&nbsp;"],cursorChar:"_",typeSpeed:90,loop:!0});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script><script>anchors.options = {
+      placement: "right",
+      visible: "always",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script><script>!function(e,r){var o,n=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)},function(t){var a=r.createElement("style");a.type="text/css";try{a.appendChild(r.createTextNode(t))}catch(e){a.styleSheet.cssText=t}r.getElementsByTagName("head")[0].appendChild(a)}(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o="function"==typeof e.onclick&&e.onclick,e.onclick=function(e){var t,a;o&&o(),t=e,(a=r.createElement("div")).className="heart",n.push({el:a,x:t.clientX-5,y:t.clientY-5,scale:1,alpha:1,color:"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}),r.body.appendChild(a)},function e(){for(var t=0;t<n.length;t++)n[t].alpha<=0?(r.body.removeChild(n[t].el),n.splice(t,1)):(n[t].y--,n[t].scale+=.004,n[t].alpha-=.013,n[t].el.style.cssText="left:"+n[t].x+"px;top:"+n[t].y+"px;opacity:"+n[t].alpha+";transform:scale("+n[t].scale+","+n[t].scale+") rotate(45deg);background:"+n[t].color+";z-index:99999");requestAnimationFrame(e)}()}(window,document)</script></body></html><!-- rebuild by neat -->
