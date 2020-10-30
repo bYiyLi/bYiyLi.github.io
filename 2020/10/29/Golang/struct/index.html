@@ -1,0 +1,131 @@
+<!-- build time:Fri Oct 30 2020 11:05:30 GMT+0800 (CST) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content="Hello Word!"><meta name="author" content="Byh"><meta name="keywords" content=""><title>struct - Y2L</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/solarized-dark.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css"><link rel="stylesheet" href="/css/main.css"><script src="/js/utils.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a></li></ul></div></div></nav><div class="view intro-2" id="background" parallax="true" style="background:url(/img/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container text-center white-text fadeInUp"><span class="h2" id="subtitle"></span><div class="mt-3 post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-10-29 00:00">2020年10月29日 凌晨</time></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 1.1k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 46 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><div class="post-content mx-auto" id="post"><article class="markdown-body"><h1 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h1><blockquote><p>数组、切片和映射对于混合不同类型的值没有帮助。它们只能保存一种类型。</p><p>一个struct（structure的简称）是一个由其他不同的多种值构造出来的。鉴于切片可能只能保存string类型，而映射可能只能保存int类型，你可以创建一个struct保存string、int、float64、bool等多种类型——所有的都在一个方便的组中。</p></blockquote><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><blockquote><p>使用struct关键字来声明一个struct类型，后面跟着花括号。在括号中，你可以定义一个或多个字段：struct组合的值。每一个字段定义在一个单独的行，由字段名称、后面跟着的字段需要保存的值类型组成。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030100336552.png" srcset="/img/loading.gif" alt="image-20201030100336552"></p><p>（使用已经定义好的类型来定义struct变量更加常见，但是此处我们不会涵盖更多的类型定义，所以我们先这么写。）</p></blockquote><hr><h2 id="使用点运算符访问struct字段"><a href="#使用点运算符访问struct字段" class="headerlink" title="使用点运算符访问struct字段"></a>使用点运算符访问struct字段</h2><blockquote><p>我们可以使用点运算符来标识属于struct的字段。这也可以用于对它们的赋值和检索。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030100825348.png" srcset="/img/loading.gif" alt="image-20201030100825348"></p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-keyword">var</span> stu <span class="hljs-keyword">struct</span>&#123;
+	age <span class="hljs-keyword">int</span>
+	name <span class="hljs-keyword">string</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	stu.age=<span class="hljs-number">12</span>
+	stu.name=<span class="hljs-string">"aaa"</span>
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,stu)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030100957937.png" srcset="/img/loading.gif" alt="image-20201030100957937"></p></blockquote><hr><ul><li>类型定义允许你自己创建新的类型。你可以基于基础类型来创建新的定义类型。</li><li>为了定义一个类型，需要使用type关键字，后面跟着新类型的名字，然后是你希望基于的基础类型。如果你使用struct类型作为你的基础类型，你需要使用struct关键字，后面跟着以花括号包裹的一组字段定义，就像你声明struct变量时所做的那样。</li><li><ul><li><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030101523646.png" srcset="/img/loading.gif" alt="image-20201030101523646"></li></ul></li><li>就像变量，类型定义可以被放在一个函数中。但是把它的作用域限定在该函数块中，意味着你不能在函数外面使用。所以类型经常定义在函数外的包级别。</li><li>如果你已经在当前包定义了一个名为car的类型，并且你同时也声明了一个名为car的变量，这个变量会遮盖类型名称，使后者无法被访问。</li></ul><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030101849298.png" srcset="/img/loading.gif" alt="image-20201030101849298"></p><h2 id="类型遮盖是一个令人疑惑的问题，所以最好知道它是会发生的。"><a href="#类型遮盖是一个令人疑惑的问题，所以最好知道它是会发生的。" class="headerlink" title="类型遮盖是一个令人疑惑的问题，所以最好知道它是会发生的。"></a>类型遮盖是一个令人疑惑的问题，所以最好知道它是会发生的。</h2><ul><li>事实上,使用点运算符在struct指针和struct上都可访问字段。</li></ul><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-keyword">type</span> stu <span class="hljs-keyword">struct</span>&#123;
+	age <span class="hljs-keyword">int</span>
+	name <span class="hljs-keyword">string</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">set</span><span class="hljs-params">(p *stu)</span></span>  &#123;
+	p.name=<span class="hljs-string">"aa"</span>
+	p.age=<span class="hljs-number">2</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	p:=stu&#123;
+		age:  <span class="hljs-number">0</span>,
+		name: <span class="hljs-string">""</span>,
+	&#125;
+	set(&amp;p)
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,p)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030102523098.png" srcset="/img/loading.gif" alt="image-20201030102523098"></p><hr><h2 id="导出类型"><a href="#导出类型" class="headerlink" title="导出类型"></a>导出类型</h2><ul><li>定义类型的名称首字母必须大写才能导出该类型</li></ul><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> page
+<span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span>&#123;
+	Age <span class="hljs-keyword">int</span>
+	Name <span class="hljs-keyword">string</span>
+&#125;
+
+---
+
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">"awesomeProject/src/page"</span>
+	<span class="hljs-string">"fmt"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">set</span><span class="hljs-params">(p *page.Stu)</span></span>  &#123;
+	p.Name=<span class="hljs-string">"aa"</span>
+	p.Age=<span class="hljs-number">2</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	p:= page.Stu&#123;
+		Age:  <span class="hljs-number">0</span>,
+		Name: <span class="hljs-string">""</span>,
+	&#125;
+	set(&amp;p)
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,p)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030103745007.png" srcset="/img/loading.gif" alt="image-20201030103745007"></p><ul><li>如果一个类型希望在它被定义的包之外访问，它必须是被导出的：它的名字必须以大写字母开头。</li><li>即使一个struct类型被从包中导出，如果它的字段名称没有首字母大写的话，它的字段也不会被导出。</li></ul><hr><h2 id="struct字面量"><a href="#struct字面量" class="headerlink" title="struct字面量"></a>struct字面量</h2><blockquote><p>Go提供了struct字面量来让你创建一个struct并同时给它的字段赋值。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030104114492.png" srcset="/img/loading.gif" alt="image-20201030104114492"></p><div class="hljs"><pre><code class="hljs go">p:= page.Stu&#123;
+		Age:  <span class="hljs-number">0</span>,
+		Name: <span class="hljs-string">""</span>,
+	&#125;</code></pre></div></blockquote><hr><h2 id="将struct作为字段增加到另一个类型中"><a href="#将struct作为字段增加到另一个类型中" class="headerlink" title="将struct作为字段增加到另一个类型中"></a>将struct作为字段增加到另一个类型中</h2><blockquote><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> page
+<span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span>&#123;
+   Age <span class="hljs-keyword">int</span>
+   Name <span class="hljs-keyword">string</span>
+&#125;
+<span class="hljs-keyword">type</span> stu <span class="hljs-keyword">struct</span> &#123;
+   s1 Stu
+   ina <span class="hljs-keyword">int</span>
+&#125;</code></pre></div></blockquote><ul><li>在struct类型中增加一个struct类型字段与增加其他类型字段相同。你提供一个字段名称，后面跟上字段类型</li></ul><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">"awesomeProject/src/page"</span>
+	<span class="hljs-string">"fmt"</span>
+)
+<span class="hljs-keyword">type</span> stu <span class="hljs-keyword">struct</span> &#123;
+	s1 page.Stu
+	ina <span class="hljs-keyword">int</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">var</span> s1 = stu&#123;
+		s1: page.Stu&#123;
+			Name: <span class="hljs-string">"a"</span>,
+			Age: <span class="hljs-number">1</span>,
+		&#125;,
+		ina: <span class="hljs-number">2</span>,
+	&#125;
+	s1.s1.Name=<span class="hljs-string">"b"</span>
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,s1)
+&#125;
+
+
+<span class="hljs-keyword">package</span> page
+<span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span>&#123;
+	Age <span class="hljs-keyword">int</span>
+	Name <span class="hljs-keyword">string</span>
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030104825150.png" srcset="/img/loading.gif" alt="image-20201030104825150"></p><hr><h2 id="匿名struct字段"><a href="#匿名struct字段" class="headerlink" title="匿名struct字段"></a>匿名struct字段</h2><blockquote><p>通过外部struct访问内部struct的字段的代码有点乏味。想要访问内部struct的字段的时候，不得不每次都输入代表struct的字段的名称.</p><p>Go允许定义一个匿名字段：struct字段没有名字，仅仅有类型。我们可以使用匿名字段来让内部struct访问更加简单。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">"awesomeProject/src/page"</span>
+	<span class="hljs-string">"fmt"</span>
+)
+<span class="hljs-keyword">type</span> stu <span class="hljs-keyword">struct</span> &#123;
+	page.Stu
+	ina <span class="hljs-keyword">int</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">var</span> s1 = stu&#123;
+		ina: <span class="hljs-number">2</span>,
+		Stu:page.Stu&#123;
+			Name: <span class="hljs-string">"1"</span>,
+			Age: <span class="hljs-number">2</span>,
+		&#125;,
+	&#125;
+	s1.Name=<span class="hljs-string">"a"</span>
+	fmt.Printf(<span class="hljs-string">"%#v"</span>,s1)
+&#125;
+
+</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201030110151636.png" srcset="/img/loading.gif" alt="image-20201030110151636"></p></blockquote><hr></article><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/Golang/">Golang</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/Golang-struct/">Golang struct</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext row"><div class="post-prev col-6"></div><div class="post-next col-6"><a href="/2020/10/29/Golang/%E6%98%A0%E5%B0%84/"><span class="hidden-mobile">映射</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></div></div></div></div></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?934a4490dae380d8ad4a788a3fb76c42";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></div></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/main.js"></script><script src="/js/lazyload.js"></script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:"article.markdown-body",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:3,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","struct&nbsp;"],cursorChar:"_",typeSpeed:90,loop:!0});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script><script>anchors.options = {
+      placement: "right",
+      visible: "always",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script><script>!function(e,r){var o,n=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)},function(t){var a=r.createElement("style");a.type="text/css";try{a.appendChild(r.createTextNode(t))}catch(e){a.styleSheet.cssText=t}r.getElementsByTagName("head")[0].appendChild(a)}(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o="function"==typeof e.onclick&&e.onclick,e.onclick=function(e){var t,a;o&&o(),t=e,(a=r.createElement("div")).className="heart",n.push({el:a,x:t.clientX-5,y:t.clientY-5,scale:1,alpha:1,color:"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}),r.body.appendChild(a)},function e(){for(var t=0;t<n.length;t++)n[t].alpha<=0?(r.body.removeChild(n[t].el),n.splice(t,1)):(n[t].y--,n[t].scale+=.004,n[t].alpha-=.013,n[t].el.style.cssText="left:"+n[t].x+"px;top:"+n[t].y+"px;opacity:"+n[t].alpha+";transform:scale("+n[t].scale+","+n[t].scale+") rotate(45deg);background:"+n[t].color+";z-index:99999");requestAnimationFrame(e)}()}(window,document)</script></body></html><!-- rebuild by neat -->
