@@ -1,0 +1,170 @@
+<!-- build time:Thu Nov 05 2020 14:01:13 GMT+0800 (CST) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content="Hello Word!"><meta name="author" content="Byh"><meta name="keywords" content=""><title>恢复 - Y2L</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/solarized-dark.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css"><link rel="stylesheet" href="/css/main.css"><script src="/js/utils.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a></li></ul></div></div></nav><div class="view intro-2" id="background" parallax="true" style="background:url(/img/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container text-center white-text fadeInUp"><span class="h2" id="subtitle"></span><div class="mt-3 post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-11-05 00:00">2020年11月5日 凌晨</time></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 1.2k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 54 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><div class="post-content mx-auto" id="post"><article class="markdown-body"><h1 id="恢复"><a href="#恢复" class="headerlink" title="恢复#"></a>恢复#</h1><h2 id="延迟函数调用"><a href="#延迟函数调用" class="headerlink" title="延迟函数调用"></a>延迟函数调用</h2><blockquote><p>如果你有一个无论如何希望确保运行的函数调用，都可以使用defer语句。你可以将defer关键字放在任何普通函数或方法调用之前，Go将延迟（也就是推迟）执行函数调用，直到当前函数退出之后。</p><p>defer语句是Go中一个非常有用的特性，可以将一个方法延迟到包裹该方法的方法返回时执行，在实际应用中，defer语句可以充当其他语言中try…catch…的角色，也可以用来处理关闭文件句柄等收尾操作。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">type</span> name <span class="hljs-keyword">interface</span> &#123;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-built_in">println</span>(<span class="hljs-string">"close main"</span>)
+	&#125;()
+	f := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i1 <span class="hljs-keyword">int</span>)</span></span> &#123;
+		<span class="hljs-built_in">println</span>(i1)
+	&#125;
+	&#123;
+		<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+			<span class="hljs-built_in">println</span>(<span class="hljs-string">"close close"</span>)
+		&#125;()
+		f(<span class="hljs-number">11</span>)
+	&#125;
+	f(<span class="hljs-number">10</span>)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105104416553.png" srcset="/img/loading.gif" alt="image-20201105104416553"></p></blockquote><ul><li>“defer”关键字确保函数调用发生，即使调用函数提前退出了。</li></ul><hr><h2 id="列出目录中的文件"><a href="#列出目录中的文件" class="headerlink" title="列出目录中的文件"></a>列出目录中的文件</h2><blockquote><p>io/ioutil包包含一个ReadDir函数，它允许我们读取目录内容。向ReadDir传递一个目录的名称，它将返回一个值切片，每个值切片对应目录包含的每个文件或子目录（以及遇到的任何错误）。</p><p>每个切片的值都满足FileInfo接口，该接口包括一个返回文件名的Name方法和一个如果是目录则返回true的IsDir方法。</p></blockquote><h3 id="递归函数调用"><a href="#递归函数调用" class="headerlink" title="递归函数调用"></a>递归函数调用</h3><blockquote><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+   <span class="hljs-string">"errors"</span>
+   <span class="hljs-string">"io/ioutil"</span>
+   <span class="hljs-string">"path/filepath"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">readDir</span><span class="hljs-params">(path <span class="hljs-keyword">string</span>,i <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">error</span></span> &#123;
+   dir, err := ioutil.ReadDir(path)
+   <span class="hljs-keyword">if</span> err!=<span class="hljs-literal">nil</span> &#123;
+      <span class="hljs-keyword">for</span> ti:=<span class="hljs-number">0</span>;ti&lt;i;ti++ &#123;
+         <span class="hljs-built_in">print</span>(<span class="hljs-string">"    "</span>)
+      &#125;
+      <span class="hljs-built_in">println</span>(path)
+   &#125;<span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">for</span> _,info := <span class="hljs-keyword">range</span> dir &#123;
+         join := filepath.Join(path, info.Name())
+         <span class="hljs-keyword">if</span> info.IsDir() &#123;
+            <span class="hljs-keyword">for</span> ti:=<span class="hljs-number">0</span>;ti&lt;i;ti++ &#123;
+               <span class="hljs-built_in">print</span>(<span class="hljs-string">"    "</span>)
+            &#125;
+            <span class="hljs-built_in">println</span>(path,<span class="hljs-string">"&#123;"</span>)
+            err := readDir(join, i+<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">if</span> err!=<span class="hljs-literal">nil</span> &#123;
+               <span class="hljs-keyword">return</span> errors.New(join+<span class="hljs-string">" err"</span>)
+            &#125;
+            <span class="hljs-keyword">for</span> ti:=<span class="hljs-number">0</span>;ti&lt;i;ti++ &#123;
+               <span class="hljs-built_in">print</span>(<span class="hljs-string">"    "</span>)
+            &#125;
+            <span class="hljs-built_in">println</span>(<span class="hljs-string">"&#125;"</span>)
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">for</span> ti:=<span class="hljs-number">0</span>;ti&lt;i;ti++ &#123;
+               <span class="hljs-built_in">print</span>(<span class="hljs-string">"    "</span>)
+            &#125;
+            <span class="hljs-built_in">println</span>(join)
+         &#125;
+      &#125;
+   &#125;
+   <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+   err := readDir(<span class="hljs-string">"./"</span>, <span class="hljs-number">1</span>)
+   <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;
+      <span class="hljs-built_in">print</span>(<span class="hljs-string">"ERR"</span>)
+   &#125;
+&#125;</code></pre></div></blockquote><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105113019323.png" srcset="/img/loading.gif" alt="image-20201105113019323"></p><hr><h2 id="panic"><a href="#panic" class="headerlink" title="panic"></a>panic</h2><blockquote><p>当程序出现panic时，当前函数停止运行，程序打印日志消息并崩溃。</p><p>可以通过简单地调用内置的panic函数来引发panic。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-built_in">panic</span>(<span class="hljs-string">"err"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"hello"</span>)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105113240690.png" srcset="/img/loading.gif" alt="image-20201105113240690"></p></blockquote><ul><li>panic函数需要一个满足空接口的参数（也就是说，它可以是任何类型）。该参数将被转换为字符串（如果需要），并作为panic日志信息的一部分打印出来。</li></ul><hr><h2 id="堆栈跟踪"><a href="#堆栈跟踪" class="headerlink" title="堆栈跟踪"></a>堆栈跟踪</h2><blockquote><p>每个被调用的函数都需要返回到调用它的函数。为了实现这一点，就像其他编程语言一样，Go保持一个调用堆栈，即在任何给定点上处于活动状态的函数调用的列表。当程序发生panic时，panic输出中包含堆栈跟踪，即调用堆栈列表。这对于确定导致程序崩溃的原因很有用。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"1"</span>)
+	f2()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"2"</span>)
+	f3()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f3</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"3"</span>)
+	f4()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f4</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"4"</span>)
+	f5()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f5</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">panic</span>(<span class="hljs-string">"ERR"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"5"</span>)
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	f1()
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105113554807.png" srcset="/img/loading.gif" alt="image-20201105113554807"></p></blockquote><hr><h2 id="延迟调用在崩溃前完成"><a href="#延迟调用在崩溃前完成" class="headerlink" title="延迟调用在崩溃前完成"></a>延迟调用在崩溃前完成</h2><blockquote><p>当程序出现panic时，所有延迟的函数调用仍然会被执行。如果有多个延迟调用，它们的执行顺序将与被延迟的顺序相反。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"1"</span>)
+	f2()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 2"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"2"</span>)
+	f3()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f3</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 3"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"3"</span>)
+	f4()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f4</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 4"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"4"</span>)
+	f5()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f5</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 5"</span>)
+	<span class="hljs-built_in">panic</span>(<span class="hljs-string">"ERR"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"5"</span>)
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	f1()
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105113836444.png" srcset="/img/loading.gif" alt="image-20201105113836444"></p></blockquote><ul><li>panic 在 defer之后打印。</li></ul><hr><h2 id="“recover”函数"><a href="#“recover”函数" class="headerlink" title="“recover”函数"></a>“recover”函数</h2><blockquote><p>Go提供了一个内置的recover函数，可以阻止程序陷入panic。我们需要使用它来体面地退出程序。</p><p>在正常程序执行过程中调用recover时，它只返回nil，而不执行其他操作</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-built_in">recover</span>()==<span class="hljs-literal">nil</span>)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105134311855.png" srcset="/img/loading.gif" alt="image-20201105134311855"></p><p>如果在程序处于panic状态时调用recover，它将停止panic。但是当你在函数中调用panic时，该函数将停止执行。因此，在panic所在的同一函数中调用recover没有意义，因为panic无论如何都会继续：</p><p>但是，当程序陷入panic时，有一种方法可以调用recover……在panic期间，任何延迟的函数调用都将完成。因此，可以在一个单独的函数中放置一个recover调用，并在引发panic的代码之前使用defer调用该函数。</p><p>调用recover不会导致在出现panic时恢复执行，至少不会完全恢复。产生panic的函数将立即返回，而该函数块中panic之后的任何代码都不会执行。但是，在产生panic的函数返回之后，正常的执行将恢复。</p><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"1"</span>)
+	f2()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 2"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"2"</span>)
+	f3()
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"Hello f2 end"</span>)
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f3</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> &#123;
+			<span class="hljs-built_in">println</span>(<span class="hljs-string">"recover err"</span>)
+		&#125;
+	&#125;()
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"3"</span>)
+	f4()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f4</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 4"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"4"</span>)
+	f5()
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f5</span><span class="hljs-params">()</span></span>  &#123;
+	<span class="hljs-keyword">defer</span> <span class="hljs-built_in">println</span>(<span class="hljs-string">"defer 5"</span>)
+	<span class="hljs-built_in">panic</span>(<span class="hljs-string">"ERR"</span>)
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"5"</span>)
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	f1()
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"Hello"</span>)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201105135714065.png" srcset="/img/loading.gif" alt="image-20201105135714065"></p></blockquote><hr></article><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/Golang/">Golang</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/Golang%E6%81%A2%E5%A4%8D/">Golang恢复</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext row"><div class="post-prev col-6"></div><div class="post-next col-6"><a href="/2020/11/04/Golang/%E6%8E%A5%E5%8F%A3/"><span class="hidden-mobile">接口</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></div></div></div></div></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?934a4490dae380d8ad4a788a3fb76c42";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></div></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/main.js"></script><script src="/js/lazyload.js"></script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:"article.markdown-body",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:3,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","恢复&nbsp;"],cursorChar:"_",typeSpeed:90,loop:!0});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script><script>anchors.options = {
+      placement: "right",
+      visible: "always",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script><script>!function(e,r){var o,n=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)},function(t){var a=r.createElement("style");a.type="text/css";try{a.appendChild(r.createTextNode(t))}catch(e){a.styleSheet.cssText=t}r.getElementsByTagName("head")[0].appendChild(a)}(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o="function"==typeof e.onclick&&e.onclick,e.onclick=function(e){var t,a;o&&o(),t=e,(a=r.createElement("div")).className="heart",n.push({el:a,x:t.clientX-5,y:t.clientY-5,scale:1,alpha:1,color:"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}),r.body.appendChild(a)},function e(){for(var t=0;t<n.length;t++)n[t].alpha<=0?(r.body.removeChild(n[t].el),n.splice(t,1)):(n[t].y--,n[t].scale+=.004,n[t].alpha-=.013,n[t].el.style.cssText="left:"+n[t].x+"px;top:"+n[t].y+"px;opacity:"+n[t].alpha+";transform:scale("+n[t].scale+","+n[t].scale+") rotate(45deg);background:"+n[t].color+";z-index:99999");requestAnimationFrame(e)}()}(window,document)</script></body></html><!-- rebuild by neat -->
