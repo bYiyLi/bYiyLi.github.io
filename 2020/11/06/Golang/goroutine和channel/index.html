@@ -1,0 +1,102 @@
+<!-- build time:Fri Nov 06 2020 16:10:40 GMT+0800 (CST) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content="Hello Word!"><meta name="author" content="Byh"><meta name="keywords" content=""><title>goroutine和channel - Y2L</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/solarized-dark.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css"><link rel="stylesheet" href="/css/main.css"><script src="/js/utils.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>Y2L</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a></li></ul></div></div></nav><div class="view intro-2" id="background" parallax="true" style="background:url(/img/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container text-center white-text fadeInUp"><span class="h2" id="subtitle"></span><div class="mt-3 post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-11-06 00:00">2020年11月6日 凌晨</time></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 1.2k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 49 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><div class="post-content mx-auto" id="post"><article class="markdown-body"><h1 id="goroutine和channel"><a href="#goroutine和channel" class="headerlink" title="goroutine和channel"></a>goroutine和channel</h1><blockquote><p>一次只做一件事并不总是完成任务最快的方法。一些大问题可以分解成小任务。goroutine可以让程序同时处理几个不同的任务。goroutine可以使用channel来协调它们的工作，channel允许goroutine互相发送数据并同步，这样一个goroutine就不会领先于另一个goroutine。goroutine让你充分利用具有多处理器的计算机，让程序运行得尽可能快！</p></blockquote><h2 id="检索网页"><a href="#检索网页" class="headerlink" title="检索网页"></a>检索网页</h2><blockquote><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">"fmt"</span>
+	<span class="hljs-string">"io/ioutil"</span>
+	<span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getUrl</span><span class="hljs-params">(url <span class="hljs-keyword">string</span>)</span></span>  &#123;
+	get, err := http.Get(url)
+	<span class="hljs-keyword">if</span> err!=<span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-built_in">recover</span>()
+		<span class="hljs-built_in">panic</span>(<span class="hljs-string">"get err"</span>)
+	&#125;
+	<span class="hljs-keyword">if</span> get==<span class="hljs-literal">nil</span>&#123;
+		<span class="hljs-built_in">recover</span>()
+		<span class="hljs-built_in">panic</span>(<span class="hljs-string">"body none 1"</span>)
+	&#125;
+	body := get.Body
+	f := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">for</span> body.Close()!=<span class="hljs-literal">nil</span> &#123;
+			fmt.Printf(<span class="hljs-string">"Close get err"</span>)
+		&#125;
+	&#125;
+	<span class="hljs-keyword">defer</span> f()
+	all, errR := ioutil.ReadAll(body)
+	<span class="hljs-keyword">if</span> errR != <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-built_in">recover</span>()
+		<span class="hljs-built_in">panic</span>(<span class="hljs-string">"body none 2"</span>)
+	&#125;
+	fmt.Printf(<span class="hljs-keyword">string</span>(all))
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	getUrl(<span class="hljs-string">"http://www.baidu.com"</span>)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106103720223.png" srcset="/img/loading.gif" alt="image-20201106103720223"></p></blockquote><hr><h2 id="多任务-使用goroutine的并发性"><a href="#多任务-使用goroutine的并发性" class="headerlink" title="多任务,使用goroutine的并发性"></a>多任务,使用goroutine的并发性</h2><blockquote><p>通过同时执行多个任务来找到加快程序运行速度的方法。</p><p>将大型任务分解为可以并发运行的较小子任务，有时可能意味着程序的速度会大大提高。</p><p>goroutine允许并发：暂停一个任务来处理其他任务。在某些情况下，它们允许并行：同时处理多个任务！</p><p>在Go中，并发任务称为goroutine。其他编程语言有一个类似的概念，叫作线程，但是goroutine比线程需要更少的计算机内存，启动和停止的时间更少，这意味着你可以同时运行更多的goroutine。</p><p>它们也更容易使用。要启动另一个goroutine，可以使用go语句，它只是一个普通的函数或方法调用，前面有go关键字：</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106104042944.png" srcset="/img/loading.gif" alt="image-20201106104042944"></p></blockquote><hr><h2 id="使用goroutine"><a href="#使用goroutine" class="headerlink" title="使用goroutine"></a>使用goroutine</h2><h3 id="没有使用"><a href="#没有使用" class="headerlink" title="没有使用"></a>没有使用</h3><blockquote><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">"fmt"</span>
+	<span class="hljs-string">"time"</span>
+)
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	now := time.Now()
+	<span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">30</span>;i++ &#123;
+		<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+			time.Sleep(<span class="hljs-number">100</span>)
+		&#125;()
+	&#125;
+	elapsed := time.Since(now)
+	fmt.Println(<span class="hljs-string">"\n该函数执行完成耗时："</span>, elapsed)
+&#125;
+</code></pre></div></blockquote><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106113239567.png" srcset="/img/loading.gif" alt="image-20201106113239567"></p><hr><h2 id="go语句不能使用返回值"><a href="#go语句不能使用返回值" class="headerlink" title="go语句不能使用返回值"></a>go语句不能使用返回值</h2><blockquote><p>切换到goroutine带来了另一个需要解决的问题：我们不能在go语句中使用函数返回值。</p><p>但是goroutine之间有一种交流方式：channel。channel不仅允许你将值从一个goroutine发送到另一个goroutine，还确保在接收的goroutine尝试使用该值之前，发送的goroutine已经发送了该值。</p><p>使用channel的唯一实际方法是从一个goroutine到另一个goroutine的通信。所以为了演示channel，我们需要做一些事情：</p><p>·创建一个channel。</p><p>·编写一个函数，该函数接收一个channel作为参数。我们将在一个单独的goroutine中运行这个函数，并使用它通过channel发送值。</p><p>每个channel只携带特定类型的值，因此可能有一个channel用于int值，另一个channel用于struct类型的值。要声明包含channel的变量，可以使用chan关键字，然后是channel将携带的值的类型。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106112235526.png" srcset="/img/loading.gif" alt="image-20201106112235526"></p><p>要实际创建channel，你需要调用内置的make函数（与创建映射和切片的函数相同）。传递make要创建的channel的类型（应该与要赋值给它的变量的类型相同）。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106112248548.png" srcset="/img/loading.gif" alt="image-20201106112248548"></p><p>不是单独声明channel变量，在大多数情况下，使用一个短变量声明更容易：</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106112307895.png" srcset="/img/loading.gif" alt="image-20201106112307895"></p></blockquote><h2 id="使用channel发送和接收值"><a href="#使用channel发送和接收值" class="headerlink" title="使用channel发送和接收值"></a>使用channel发送和接收值</h2><blockquote><p>要在channel上发送值，可以使用&lt;-运算符（这是一个小于号后面跟着一个英文破折号）。它看起来像一个箭头，从发送的值指向发送该值的channel。</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106112424204.png" srcset="/img/loading.gif" alt="image-20201106112424204"></p><p>你还可以使用&lt;-运算符来接收来自channel的值，但是位置不同：你将箭头放在接收channel的左侧。（这看起来有点像你从channel中取出一个值。）</p><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106112434060.png" srcset="/img/loading.gif" alt="image-20201106112434060"></p></blockquote><h3 id="使用goroutine-1"><a href="#使用goroutine-1" class="headerlink" title="使用goroutine"></a>使用goroutine</h3><blockquote><div class="hljs"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">"fmt"</span>
+	<span class="hljs-string">"time"</span>
+)
+<span class="hljs-keyword">var</span> ints = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	now := time.Now()
+	<span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">30</span>;i++ &#123;
+		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+			time.Sleep(<span class="hljs-number">100</span>)
+			ints&lt;<span class="hljs-number">-1</span>
+		&#125;()
+	&#125;
+	n:=<span class="hljs-number">0</span>
+	<span class="hljs-keyword">for</span> ;n&lt;<span class="hljs-number">29</span>;n+=(&lt;-ints) &#123;
+	&#125;
+	elapsed := time.Since(now)
+	fmt.Println(<span class="hljs-string">"\n该函数执行完成耗时："</span>, elapsed)
+&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106113330251.png" srcset="/img/loading.gif" alt="image-20201106113330251"></p></blockquote><h2 id="顺序执行"><a href="#顺序执行" class="headerlink" title="顺序执行"></a>顺序执行</h2><blockquote><ul><li>我们提到，channel还确保发送的goroutine在接收channel尝试使用该值之前已经发送了该值。channel通过blocking（阻塞）——暂停当前goroutine中的所有进一步操作来实现这一点。发送操作阻塞发送goroutine，直到另一个goroutine在同一channel上执行了接收操作。反之亦然：接收操作阻塞接收goroutine，直到另一个goroutine在同一channel上执行了发送操作。这个行为允许goroutine同步它们的动作——协调它们的时间.</li></ul><div class="hljs"><pre><code class="hljs go">&gt;<span class="hljs-keyword">package</span> main
+
+&gt;<span class="hljs-keyword">import</span> <span class="hljs-string">"time"</span>
+
+&gt;<span class="hljs-keyword">var</span> ints = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)
+&gt;<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">3</span>;i++ &#123;
+		time.Sleep(time.Duration(<span class="hljs-number">1000000000</span>))
+		&lt;-ints
+		<span class="hljs-built_in">println</span>(<span class="hljs-string">"go "</span>,i)
+		ints&lt;<span class="hljs-number">-1</span>
+	&#125;
+&#125;()
+<span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">3</span>;i++ &#123;
+	ints&lt;<span class="hljs-number">-1</span>
+	<span class="hljs-built_in">println</span>(<span class="hljs-string">"main   "</span>,i)
+	&lt;-ints
+&#125;
+&gt;&#125;</code></pre></div><p><img src="https://gitee.com/htxdlm/md-images/raw/master/image-20201106153234175.png" srcset="/img/loading.gif" alt="image-20201106153234175"></p></blockquote></article><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/Golang/">Golang</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/GolangGoroutine%E5%92%8Cchannel/">GolangGoroutine和channel</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext row"><div class="post-prev col-6"></div><div class="post-next col-6"><a href="/2020/11/05/Golang/%E6%81%A2%E5%A4%8D/"><span class="hidden-mobile">恢复</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></div></div></div></div></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?934a4490dae380d8ad4a788a3fb76c42";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></div></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/main.js"></script><script src="/js/lazyload.js"></script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:"article.markdown-body",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:3,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","goroutine和channel&nbsp;"],cursorChar:"_",typeSpeed:90,loop:!0});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script><script>anchors.options = {
+      placement: "right",
+      visible: "always",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script><script>!function(e,r){var o,n=[];e.requestAnimationFrame=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)},function(t){var a=r.createElement("style");a.type="text/css";try{a.appendChild(r.createTextNode(t))}catch(e){a.styleSheet.cssText=t}r.getElementsByTagName("head")[0].appendChild(a)}(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o="function"==typeof e.onclick&&e.onclick,e.onclick=function(e){var t,a;o&&o(),t=e,(a=r.createElement("div")).className="heart",n.push({el:a,x:t.clientX-5,y:t.clientY-5,scale:1,alpha:1,color:"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}),r.body.appendChild(a)},function e(){for(var t=0;t<n.length;t++)n[t].alpha<=0?(r.body.removeChild(n[t].el),n.splice(t,1)):(n[t].y--,n[t].scale+=.004,n[t].alpha-=.013,n[t].el.style.cssText="left:"+n[t].x+"px;top:"+n[t].y+"px;opacity:"+n[t].alpha+";transform:scale("+n[t].scale+","+n[t].scale+") rotate(45deg);background:"+n[t].color+";z-index:99999");requestAnimationFrame(e)}()}(window,document)</script></body></html><!-- rebuild by neat -->
